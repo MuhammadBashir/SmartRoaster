@@ -1,8 +1,288 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="calendar-wraper">
+  <div class="calendar-header">
+    <h3 class="cal-main_title"> Appointments System </h3>
+    <div class="cal-week_sort"> <i class="fa fa-chevron-left"></i> <i class="fa fa-chevron-right"></i>
+      <h3 class="cal-month_title"> November 2018 </h3>
+    </div>
+    <div class="btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-default"> Today </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="calnedar_offices-list">
+        <div class="form-inline">
+          <label class="control-label"> List Offices: </label>
+          <select class="form-control">
+            <option> Select </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar-body">
+    <div class="calendar-wraper">
+      <!-- Header -->
+      <div class="calendar-row row-header">
+
+        <div *ngFor="let day of daysOfWeek" class="calendar-col">
+          <span> {{day.name}} </span>
+          <h4> {{day.date | date:'dd'}} </h4>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div *ngFor="let timeSlot of timeSlots" class="calendar-row row-body">
+        <div *ngFor="let roaster of timeSlot.roasters" class="calendar-col" [ngClass]="{available: roaster.available, taken: !roaster.available}"
+          data-toggle="modal" data-target="#myModal">
+          <span> {{timeSlot.timeSlot}} </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="text-center"> User Details </h3>
+        <hr />
+        <div class="form">
+          <h4> Company Information </h4>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Individual/Company </label>
+                <select class="form-control">
+                  <option>Individual</option>
+                  <option>Company</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row relative">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Company Name </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> ABN </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> CAD </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="btn_add-row">
+              <a href="#"> <i class="fa fa-trash"></i> </a>
+            </div>
+          </div>
+          <div class="row relative">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Company Name </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> ABN </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> CAD </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="btn_add-row">
+              <a href="#"> <i class="fa fa-plus-circle"></i> </a>
+              <a href="#"> <i class="fa fa-trash"></i> </a>
+            </div>
+          </div>
+
+
+          <hr />
+
+          <h4> Personal Information </h4>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Title </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> First Name </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Last Name </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <h4> Contact Information </h4>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Mobile Phone </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Contact Phone </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Home Phone </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Best Time To Call </label>
+                <select class="form-control">
+                  <option>Select</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Personal Email </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Work Email</label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <hr />
+
+          <h4> Your Address </h4>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Address Line 1 </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Address Line 2 </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Suburb </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Post Code </label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> State </label>
+                <select class="form-control">
+                  <option>Select</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          <h4> Other Information </h4>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Timeframe </label>
+                <select class="form-control">
+                  <option>ASAP</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Finance </label>
+                <select class="form-control">
+                  <option>Cash/Finance</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Land </label>
+                <select class="form-control">
+                  <option>Have Land</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Region </label>
+                <select class="form-control">
+                  <option>Select</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Land Location </label>
+                <select class="form-control">
+                  <option>Select</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Where did you hear about us? </label>
+                <select class="form-control">
+                  <option>Select</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal"> Cancel </button>
+        <button class="btn btn-primary"> Submit </button>
+      </div>
+    </div>
+  </div>
+</div>

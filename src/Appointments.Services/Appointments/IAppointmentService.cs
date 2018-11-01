@@ -10,5 +10,11 @@ namespace Appointments.Services.Appointments
     public interface IAppointmentService
     {
         List<Location> GetLocations();
+        List<CustomerNameTypes> GetCustomerNameTypes();
+        List<Phone> GetPhoneLabels();
+        List<Regions> GetRegions();
+        List<Email> GetEmailLabels();
+        List<Suburbs> GetSuburbs();
+        List<BestTimesToCall> GetTimesToCall();
     }
 }

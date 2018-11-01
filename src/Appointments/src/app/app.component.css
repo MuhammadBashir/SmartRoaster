@@ -1,0 +1,221 @@
+/* CSS Document */
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    background: #F8FAFB;
+    overflow: hidden;
+}
+
+h1.h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+.relative {
+    position: relative;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #4D7CFE;
+    border-color: #4D7CFE;
+}
+
+.btn-primary.hover,
+.btn-primary:hover,
+.btn-primary.focus,
+.btn-primary:focus,
+.btn-primary.active,
+.btn-primary:active {
+    color: #fff;
+    background-color: #325eda;
+    border-color: #325eda;
+}
+
+
+.primColor {
+    color: #4D7CFE;
+}
+
+.calendar-wraper {
+    overflow: hidden;
+}
+
+.calendar-header {
+    padding: 15px 25px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+}
+
+.cal-main_title {
+    color: #4D7CFE;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.cal-week_sort {
+    margin-right: 5vw;
+}
+
+.cal-week_sort i {
+    vertical-align: middle;
+    color: rgba(0, 0, 0, 0.54);
+    display: inline-block;
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cal-week_sort .cal-month_title {
+    color: rgba(0, 0, 0, 0.54);
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 2rem;
+}
+
+.calnedar_offices-list {
+    padding: 25px;
+}
+
+/*Form and Button Styles*/
+.btn {
+    border-radius: 2px;
+}
+
+.form-control {
+    background: #ffffff;
+    box-shadow: none;
+    border-radius: 2px;
+}
+
+.calnedar_offices-list .form-control {
+    width: 200px;
+    margin-left: 25px;
+}
+
+
+/*Calendar Body*/
+.calendar-body {
+    padding: 0;
+    background: #ffffff;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+    height: calc(100vh - 65px);
+    overflow: hidden;
+}
+
+.calendar-wraper {
+    border: solid 1px rgba(0, 0, 0, 0.05);
+    border-collapse: collapse;
+    display: table;
+    width: 100%;
+}
+
+.calendar-row {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.calendar-row:last-child .calendar-col {
+    border-bottom: none;
+}
+
+.calendar-col {
+    display: table-cell;
+    vertical-align: inherit;
+    text-align: left;
+    border: solid 1px rgba(0, 0, 0, 0.05);
+    padding: 6px 10px 15px 10px;
+}
+
+.row-header .calendar-col {
+    padding: 6px 10px 25px 10px;
+}
+
+.first-calendar-col {
+    width: 75px;
+    font-weight: normal;
+    text-align: right;
+}
+
+.row-header .calendar-col span {
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: bold;
+}
+
+.row-header .calendar-col h4 {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 42px;
+    font-weight: normal;
+}
+
+
+.row-body .calendar-col span {
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.row-body .calendar-col.taken {
+    background: #F3F3F3;
+    cursor: not-allowed;
+}
+
+.row-body .calendar-col.taken span {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.row-body .calendar-col.available {
+    background: #5CB17E;
+    cursor: pointer;
+}
+
+.row-body .calendar-col.available span {
+    color: #ffffff;
+}
+
+/*Modal Popup Form Styles*/
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-body .form {
+    width: 90%;
+}
+
+.modal-body .form h4 {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.btn_add-row {
+    position: absolute;
+    right: -50px;
+    top: 30px;
+}
+
+.btn_add-row a {
+    color: #4D7CFE;
+    padding: 0 5px;
+    display: inline-block;
+    font-size: 16px;
+}

@@ -32,6 +32,36 @@ namespace Appointments
                 routeTemplate: "api/appointment/officelocations",
                 defaults: new { controller = "AppointmentsApi", action = "GetLocations" }
             );
+            config.Routes.MapHttpRoute(
+                name: "GetPhoneLabels",
+                routeTemplate: "api/appointment/PhoneLabels",
+                defaults: new { controller = "AppointmentsApi", action = "GetPhoneLabels" }
+            );
+            config.Routes.MapHttpRoute(
+                name: "GetEmailLabels",
+                routeTemplate: "api/appointment/EmailLabels",
+                defaults: new { controller = "AppointmentsApi", action = "GetEmailLabels" }
+            );
+            config.Routes.MapHttpRoute(
+                name: "GetBestTimesToCall",
+                routeTemplate: "api/appointment/BestTimeToCalls",
+                defaults: new { controller = "AppointmentsApi", action = "GetBestTimesToCall" }
+            );
+            config.Routes.MapHttpRoute(
+                name: "GetSuburbs",
+                routeTemplate: "api/appointment/Suburbs",
+                defaults: new { controller = "AppointmentsApi", action = "GetSuburbs" }
+            );
+            config.Routes.MapHttpRoute(
+                name: "GetRegions",
+                routeTemplate: "api/appointment/Regions",
+                defaults: new { controller = "AppointmentsApi", action = "GetRegions" }
+            );
+            config.Routes.MapHttpRoute(
+                name: "GetCustomerNameTypes",
+                routeTemplate: "api/appointment/CustomerNameTypes",
+                defaults: new { controller = "AppointmentsApi", action = "GetCustomerNameTypes" }
+            );
         }
     }
 }

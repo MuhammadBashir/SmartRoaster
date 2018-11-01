@@ -10,5 +10,12 @@ namespace Appointments.Repositories.Repositories
     public interface IAppointmentRepository
     {
         List<Location> GetLocations();
+        List<CustomerNameTypes> GetCustomerNameTypes();
+        List<Phone> GetPhoneLabels();
+        List<Regions> GetRegions();
+        List<Email> GetEmailLabels();
+        List<Suburbs> GetSuburbs();
+        List<BestTimesToCall> GetTimesToCall();
+
     }
 }

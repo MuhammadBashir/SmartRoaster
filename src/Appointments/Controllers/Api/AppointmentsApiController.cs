@@ -18,10 +18,33 @@ namespace Appointments.Controllers.Api
         {
             this.appointmentService = appointmentService;
         }
-
         public async Task<List<Location>> GetLocations()
         {
             return await Task.Run(() => appointmentService.GetLocations());
+        }
+        public async Task<List<Phone>> GetPhoneLabels()
+        {
+            return await Task.Run(() => appointmentService.GetPhoneLabels());
+        }
+        public async Task<List<Email>> GetEmailLabels()
+        {
+            return await Task.Run(() => appointmentService.GetEmailLabels());
+        }
+        public async Task<List<BestTimesToCall>> GetBestTimesToCall()
+        {
+            return await Task.Run(() => appointmentService.GetTimesToCall());
+        }
+        public async Task<List<Suburbs>> GetSuburbs()
+        {
+            return await Task.Run(() => appointmentService.GetSuburbs());
+        }
+        public async Task<List<Regions>> GetRegions()
+        {
+            return await Task.Run(() => appointmentService.GetRegions());
+        }
+        public async Task<List<CustomerNameTypes>> GetCustomerNameTypes()
+        {
+            return await Task.Run(() => appointmentService.GetCustomerNameTypes());
         }
     }
 }

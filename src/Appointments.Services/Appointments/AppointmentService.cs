@@ -21,5 +21,29 @@ namespace Appointments.Services.Appointments
         {
             return repository.GetLocations();
         }
+        public List<Suburbs> GetSuburbs()
+        {
+            return repository.GetSuburbs();
+        }
+        public List<Regions> GetRegions()
+        {
+            return repository.GetRegions();
+        }
+        public List<Email> GetEmailLabels()
+        {
+            return repository.GetEmailLabels();
+        }
+        public List<Phone> GetPhoneLabels()
+        {
+            return repository.GetPhoneLabels();
+        }
+        public List<CustomerNameTypes> GetCustomerNameTypes()
+        {
+            return repository.GetCustomerNameTypes();
+        }
+        public List<BestTimesToCall> GetTimesToCall()
+        {
+            return repository.GetTimesToCall();
+        }
     }
 }
