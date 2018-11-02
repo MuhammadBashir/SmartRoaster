@@ -45,5 +45,9 @@ namespace Appointments.Services.Appointments
         {
             return repository.GetTimesToCall();
         }
+        public List<Roaster> GetRoasters(DateTime date)
+        {
+            return repository.GetRoasters(date);
+        }
     }
 }

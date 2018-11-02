@@ -16,6 +16,7 @@ namespace Appointments.Repositories.Repositories
         List<Email> GetEmailLabels();
         List<Suburbs> GetSuburbs();
         List<BestTimesToCall> GetTimesToCall();
+        List<Roaster> GetRoasters(DateTime date);
 
     }
 }

@@ -46,5 +46,9 @@ namespace Appointments.Controllers.Api
         {
             return await Task.Run(() => appointmentService.GetCustomerNameTypes());
         }
+        public async Task<List<Roaster>> GetRoasters(DateTime date)
+        {
+            return await Task.Run(() => appointmentService.GetRoasters(date));
+        }
     }
 }

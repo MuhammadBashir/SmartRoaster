@@ -239,5 +239,97 @@ namespace Appointments.Repositories.MockRepositories
                 }
             };
         }
+        public List<Roaster> GetRoasters(DateTime date)
+        {
+            var roasterDate = new DateTime(2018, 11, 02);
+            var rosters =  new List<Roaster>
+            {
+                new Roaster
+                {
+                    RosterDate = roasterDate,
+                    RosterTimePeriods = new List<RosterTimePeriod>
+                    {
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,02,08,00,00),
+                            EndTime = new DateTime(2018,11,02,08,00,00).AddMinutes(30)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,02,09,00,00),
+                            EndTime = new DateTime(2018,11,02,09,30,00)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,02,10,00,00),
+                            EndTime = new DateTime(2018,11,02,10,30,00).AddMinutes(30)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,02,11,00,00),
+                            EndTime = new DateTime(2018,11,02,11,30,00).AddMinutes(30)
+                        }
+
+                    }
+                },
+                new Roaster
+                {
+                    RosterDate = roasterDate.AddDays(1),
+                    RosterTimePeriods = new List<RosterTimePeriod>
+                    {
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,03,08,00,00),
+                            EndTime = new DateTime(2018,11,03,03,00,00)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,03,09,00,00),
+                            EndTime = new DateTime(2018,11,03,09,30,00)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,03,10,00,00),
+                            EndTime = new DateTime(2018,11,03,10,30,00)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,03,11,00,00),
+                            EndTime = new DateTime(2018,11,03,11,30,00)
+                        }
+                    },
+
+                },
+                new Roaster
+                {
+                    RosterDate = roasterDate.AddDays(2),
+                    RosterTimePeriods = new List<RosterTimePeriod>
+                    {
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,04,08,00,00),
+                            EndTime = new DateTime(2018,11,04,08,00,00)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,04,09,00,00),
+                            EndTime = new DateTime(2018,11,04,09,30,00)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,04,10,00,00),
+                            EndTime = new DateTime(2018,11,04,10,30,00)
+                        },
+                        new RosterTimePeriod
+                        {
+                            StartTime = new DateTime(2018,11,04,11,00,00),
+                            EndTime = new DateTime(2018,11,04,11,30,00)
+                        }
+                    }
+                }
+
+            };
+            return rosters.Where(r => r.RosterDate.Date == date.Date).ToList();
+        }
     }
 }

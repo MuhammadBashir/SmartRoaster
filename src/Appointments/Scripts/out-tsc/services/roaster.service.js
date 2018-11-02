@@ -9,53 +9,58 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Roaster } from "./../models/roaster";
 import { Injectable } from "@angular/core";
-import { getWeekMondayByDate, WEEK_DAYS, forEachDateInRange } from "./../common/common";
+import { getTimeSlot } from "./../common/common";
+import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
 var RoasterService = /** @class */ (function () {
-    function RoasterService() {
+    function RoasterService(http) {
+        this.http = http;
     }
     RoasterService.prototype.getRoasters = function (date) {
         var roasters = [];
         var actualRoasters = this.getActualRoasters(date);
         var available = true;
-        for (var index = 1; index < 24; index++) {
-            for (var j = 0; j < actualRoasters.length; j++) {
-                var roaster_1 = actualRoasters[j];
-                roaster_1.timeSlot == index ? (available = false) : (available = true);
-            }
+        for (var index = 1; index < 25; index++) {
+            // for (let j = 0; j < actualRoasters.length; j++) {
+            //   const roaster = actualRoasters[j];
+            //   if (roaster.timeSlot == index) {
+            //     available = false;
+            //     break;
+            //   } else available = true;
+            // }
             var roaster = new Roaster(date, index, "JN#" + index, available);
             roasters.push(roaster);
         }
         return roasters;
     };
     RoasterService.prototype.getActualRoasters = function (date) {
-        var roasters = [];
-        for (var index = 1; index < 25; index++) {
-            if (index % 2 == 0) {
-                var roaster = new Roaster(date, index, "JN#" + index);
-                roasters.push(roaster);
-            }
-        }
+        var roasters;
+        this.getRoastersFromApi(date).subscribe(function (mappedRoasters) {
+            roasters = mappedRoasters;
+        });
         return roasters;
     };
-    RoasterService.prototype.getDaysOfWeek = function (date) {
-        var daysOfWeek = [];
-        date = new Date();
-        var monday = getWeekMondayByDate(date);
-        var sunday = monday.getDay() + 7;
-        var dayOfWeek;
-        forEachDateInRange(monday, sunday, function (date) {
-            dayOfWeek.date = date;
-            dayOfWeek.name = WEEK_DAYS[date.getDay()];
-            dayOfWeek.roasters = this.getRoasters(date);
-            daysOfWeek.push(dayOfWeek);
-        });
-        return daysOfWeek;
+    RoasterService.prototype.getRoastersFromApi = function (date) {
+        return this.http
+            .get("/api/appointment/GetRoasters?date=" + date)
+            .pipe(map(function (rootArray) {
+            var roasterArray = [];
+            rootArray.forEach(function (model) {
+                model.rosterTimePeriods.forEach(function (tp) {
+                    var startTime = tp.startTime;
+                    var time = new Date(startTime);
+                    var roster = new Roaster(time, getTimeSlot(time), "jn", true);
+                    roasterArray.push(roster);
+                });
+            });
+            return roasterArray;
+        }));
     };
     RoasterService = __decorate([
         Injectable({
             providedIn: "root"
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [HttpClient])
     ], RoasterService);
     return RoasterService;
 }());

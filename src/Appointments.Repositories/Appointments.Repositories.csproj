@@ -50,6 +50,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\Regions.cs" />
+    <Compile Include="Models\Roaster.cs" />
     <Compile Include="Models\Suburbs.cs" />
     <Compile Include="Modules\RepositoriesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

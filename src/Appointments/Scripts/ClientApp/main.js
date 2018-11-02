@@ -110,7 +110,7 @@ module.exports = "\r\n@import url('https://fonts.googleapis.com/css?family=Lato:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"calendar-wraper\">\n  <div class=\"calendar-header\">\n    <h3 class=\"cal-main_title\"> Appointments System </h3>\n    <div class=\"cal-week_sort\"> <i class=\"fa fa-chevron-left\"></i> <i class=\"fa fa-chevron-right\"></i>\n      <h3 class=\"cal-month_title\"> November 2018 </h3>\n    </div>\n    <div class=\"btn-group\" role=\"group\" aria-label=\"...\">\n      <button type=\"button\" class=\"btn btn-default\"> Today </button>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"calnedar_offices-list\">\n        <div class=\"form-inline\">\n          <label class=\"control-label\"> List Offices: </label>\n          <select class=\"form-control\">\n            <option> Select </option>\n          </select>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"calendar-body\">\n    <div class=\"calendar-wraper\">\n      <!-- Header -->\n      <div class=\"calendar-row row-header\">\n\n        <div *ngFor=\"let day of daysOfWeek\" class=\"calendar-col\">\n          <span> {{day.name}} </span>\n          <h4> {{day.date | date:'dd'}} </h4>\n        </div>\n      </div>\n\n      <!-- Body -->\n      <div *ngFor=\"let timeSlot of timeSlots\" class=\"calendar-row row-body\">\n        <div *ngFor=\"let roaster of timeSlot.roasters\" class=\"calendar-col\" [ngClass]=\"{available: roaster.available, taken: !roaster.available}\"\n          data-toggle=\"modal\" data-target=\"#myModal\">\n          <span> {{timeSlot.timeSlot}} </span>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n\n\n<!-- Modal -->\n<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n  <div class=\"modal-dialog modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-body\">\n        <h3 class=\"text-center\"> User Details </h3>\n        <hr />\n        <div class=\"form\">\n          <h4> Company Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Individual/Company </label>\n                <select class=\"form-control\">\n                  <option>Individual</option>\n                  <option>Company</option>\n                </select>\n              </div>\n            </div>\n          </div>\n          <div class=\"row relative\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Company Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> ABN </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> CAD </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"btn_add-row\">\n              <a href=\"#\"> <i class=\"fa fa-trash\"></i> </a>\n            </div>\n          </div>\n          <div class=\"row relative\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Company Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> ABN </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> CAD </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"btn_add-row\">\n              <a href=\"#\"> <i class=\"fa fa-plus-circle\"></i> </a>\n              <a href=\"#\"> <i class=\"fa fa-trash\"></i> </a>\n            </div>\n          </div>\n\n\n          <hr />\n\n          <h4> Personal Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Title </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> First Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Last Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n          </div>\n\n          <hr />\n\n          <h4> Contact Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Mobile Phone </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Contact Phone </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Home Phone </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Best Time To Call </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Personal Email </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Work Email</label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n          </div>\n          <hr />\n\n          <h4> Your Address </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Address Line 1 </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Address Line 2 </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Suburb </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Post Code </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> State </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n          </div>\n\n          <hr />\n          <h4> Other Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Timeframe </label>\n                <select class=\"form-control\">\n                  <option>ASAP</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Finance </label>\n                <select class=\"form-control\">\n                  <option>Cash/Finance</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Land </label>\n                <select class=\"form-control\">\n                  <option>Have Land</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Region </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Land Location </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Where did you hear about us? </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button class=\"btn btn-default\" data-dismiss=\"modal\"> Cancel </button>\n        <button class=\"btn btn-primary\"> Submit </button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"calendar-wraper\">\n  <div class=\"calendar-header\">\n    <h3 class=\"cal-main_title\"> Appointments System </h3>\n    <div class=\"cal-week_sort\"> <i class=\"fa fa-chevron-left\"></i> <i class=\"fa fa-chevron-right\"></i>\n      <h3 class=\"cal-month_title\"> November 2018 </h3>\n    </div>\n    <div class=\"btn-group\" role=\"group\" aria-label=\"...\">\n      <button type=\"button\" class=\"btn btn-default\"> Today </button>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"calnedar_offices-list\">\n        <div class=\"form-inline\">\n          <label class=\"control-label\"> List Offices: </label>\n          <select class=\"form-control\" (change)=\"onOfficeLocationChanged($event)\">\n            <option>Select</option>\n            <option *ngFor=\"let location of officeLocations\"> {{location.name}} </option>\n          </select>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"calendar-body\">\n    <div class=\"calendar-wraper\">\n      <!-- Header -->\n      <div class=\"calendar-row row-header\">\n\n        <div *ngFor=\"let day of daysOfWeek\" class=\"calendar-col\">\n          <span> {{day.name}} </span>\n          <h4> {{day.date | date:'dd'}} </h4>\n        </div>\n      </div>\n\n      <!-- Body -->\n      <div *ngFor=\"let timeSlot of timeSlots\" class=\"calendar-row row-body\">\n        <div *ngFor=\"let roaster of timeSlot.roasters\" class=\"calendar-col\" [ngClass]=\"{available: roaster.available, taken: !roaster.available}\"\n          data-toggle=\"modal\" data-target=\"#myModal\">\n          <span> {{timeSlot.timeSlot}} </span>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n\n\n<!-- Modal -->\n<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n  <div class=\"modal-dialog modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-body\">\n        <h3 class=\"text-center\"> User Details </h3>\n        <hr />\n        <div class=\"form\">\n          <h4> Company Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Individual/Company </label>\n                <select class=\"form-control\">\n                  <option>Individual</option>\n                  <option>Company</option>\n                </select>\n              </div>\n            </div>\n          </div>\n          <div class=\"row relative\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Company Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> ABN </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> CAD </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"btn_add-row\">\n              <a href=\"#\"> <i class=\"fa fa-trash\"></i> </a>\n            </div>\n          </div>\n          <div class=\"row relative\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Company Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> ABN </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> CAD </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"btn_add-row\">\n              <a href=\"#\"> <i class=\"fa fa-plus-circle\"></i> </a>\n              <a href=\"#\"> <i class=\"fa fa-trash\"></i> </a>\n            </div>\n          </div>\n\n\n          <hr />\n\n          <h4> Personal Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Title </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> First Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Last Name </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n          </div>\n\n          <hr />\n\n          <h4> Contact Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Mobile Phone </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Contact Phone </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Home Phone </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Best Time To Call </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Personal Email </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Work Email</label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n          </div>\n          <hr />\n\n          <h4> Your Address </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Address Line 1 </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Address Line 2 </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Suburb </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Post Code </label>\n                <input type=\"text\" class=\"form-control\" />\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> State </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n          </div>\n\n          <hr />\n          <h4> Other Information </h4>\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Timeframe </label>\n                <select class=\"form-control\">\n                  <option>ASAP</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Finance </label>\n                <select class=\"form-control\">\n                  <option>Cash/Finance</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Land </label>\n                <select class=\"form-control\">\n                  <option>Have Land</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Region </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Land Location </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"col-md-4\">\n              <div class=\"form-group\">\n                <label class=\"control-label\"> Where did you hear about us? </label>\n                <select class=\"form-control\">\n                  <option>Select</option>\n                </select>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button class=\"btn btn-default\" data-dismiss=\"modal\"> Cancel </button>\n        <button class=\"btn btn-primary\"> Submit </button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -126,9 +126,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _services_roaster_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../services/roaster.service */ "./src/services/roaster.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _models_roaster__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/roaster */ "./src/models/roaster.ts");
-/* harmony import */ var _common_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/common */ "./src/common/common.ts");
-/* harmony import */ var _models_timeslots__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/timeslots */ "./src/models/timeslots.ts");
+/* harmony import */ var _models_days__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/days */ "./src/models/days.ts");
+/* harmony import */ var _models_roaster__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/roaster */ "./src/models/roaster.ts");
+/* harmony import */ var _common_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/common */ "./src/common/common.ts");
+/* harmony import */ var _models_timeslots__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../models/timeslots */ "./src/models/timeslots.ts");
+/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns/add_days */ "./node_modules/date-fns/add_days/index.js");
+/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(date_fns_add_days__WEBPACK_IMPORTED_MODULE_6__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -143,6 +146,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var AppComponent = /** @class */ (function () {
     function AppComponent(roasterService) {
         this.roasterService = roasterService;
@@ -151,28 +156,82 @@ var AppComponent = /** @class */ (function () {
         this.timeSlots = [];
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.daysOfWeek = this.roasterService.getDaysOfWeek(new Date());
-        this.setRoasters();
+        this.getAllWeeksRoasters(new Date());
+        this.getOfficeLocations();
     };
-    AppComponent.prototype.setRoasters = function () {
+    AppComponent.prototype.getOfficeLocations = function () {
+        var _this = this;
+        this.roasterService
+            .getOfficeLocations()
+            .subscribe(function (locations) { return (_this.officeLocations = locations); });
+    };
+    AppComponent.prototype.getAllWeeksRoasters = function (date) {
+        var _this = this;
+        date = new Date();
+        var monday = Object(_common_common__WEBPACK_IMPORTED_MODULE_4__["getWeekMondayByDate"])(date);
+        var sunday = date_fns_add_days__WEBPACK_IMPORTED_MODULE_6___default()(monday, 6);
+        var dayOfWeek;
+        var self = this;
+        Object(_common_common__WEBPACK_IMPORTED_MODULE_4__["forEachDateInRange"])(monday, sunday, function (date) {
+            self.roasterService.getRoastersFromApi(date).subscribe(function (roaster) {
+                dayOfWeek = new _models_days__WEBPACK_IMPORTED_MODULE_2__["DayOfWeek"](_common_common__WEBPACK_IMPORTED_MODULE_4__["WEEK_DAYS"][date.getDay()], date, []);
+                dayOfWeek.roasters = self.setRosters(roaster, date);
+                self.daysOfWeek.push(dayOfWeek);
+            });
+            self.isSubscriptionComplete = true;
+        });
+        setTimeout(function () {
+            if (_this.isSubscriptionComplete) {
+                _this.setTimeSlots();
+            }
+        }, 1000);
+    };
+    AppComponent.prototype.setDaysOfWeek = function (actualRosters, date) {
+        date = new Date();
+        var monday = Object(_common_common__WEBPACK_IMPORTED_MODULE_4__["getWeekMondayByDate"])(date);
+        var sunday = date_fns_add_days__WEBPACK_IMPORTED_MODULE_6___default()(monday, 6);
+        var dayOfWeek;
+        var self = this;
+        Object(_common_common__WEBPACK_IMPORTED_MODULE_4__["forEachDateInRange"])(monday, sunday, function (date) { });
+        this.setTimeSlots();
+    };
+    AppComponent.prototype.setRosters = function (actualRoasters, date) {
+        var available = true;
+        var finalizedRosters = [];
+        for (var index = 1; index < 25; index++) {
+            for (var j = 0; j < actualRoasters.length; j++) {
+                var roaster_1 = actualRoasters[j];
+                if (roaster_1.timeSlot == index) {
+                    available = false;
+                    break;
+                }
+                else
+                    available = true;
+            }
+            var roaster = new _models_roaster__WEBPACK_IMPORTED_MODULE_3__["Roaster"](new Date(), index, "JN#" + index, available);
+            finalizedRosters.push(roaster);
+        }
+        return finalizedRosters;
+    };
+    AppComponent.prototype.setTimeSlots = function () {
         var flatRoasters = [];
+        this.daysOfWeek = Object(_common_common__WEBPACK_IMPORTED_MODULE_4__["orderByDate"])(this.daysOfWeek, "date");
         this.daysOfWeek.forEach(function (day) {
             day.roasters.forEach(function (roaster) {
                 flatRoasters.push(roaster);
             });
         });
-        var groupedRoasters = Object(_common_common__WEBPACK_IMPORTED_MODULE_3__["groupBy"])(flatRoasters, "timeSlot");
-        console.log(groupedRoasters);
+        var groupedRoasters = Object(_common_common__WEBPACK_IMPORTED_MODULE_4__["groupBy"])(flatRoasters, "timeSlot");
         var timeSlot;
         var _loop_1 = function (index) {
             var rawRoasters = groupedRoasters[index];
             var tempRoasters = [];
             rawRoasters.forEach(function (rst) {
                 var date = rst.date, timeSlot = rst.timeSlot, jobNumber = rst.jobNumber, available = rst.available;
-                var roaster = new _models_roaster__WEBPACK_IMPORTED_MODULE_2__["Roaster"](date, timeSlot, jobNumber, available);
+                var roaster = new _models_roaster__WEBPACK_IMPORTED_MODULE_3__["Roaster"](date, timeSlot, jobNumber, available);
                 tempRoasters.push(roaster);
             });
-            timeSlot = new _models_timeslots__WEBPACK_IMPORTED_MODULE_4__["TimeSlot"](index, _common_common__WEBPACK_IMPORTED_MODULE_3__["TIME_SLOTS"][index], tempRoasters);
+            timeSlot = new _models_timeslots__WEBPACK_IMPORTED_MODULE_5__["TimeSlot"](index, _common_common__WEBPACK_IMPORTED_MODULE_4__["TIME_SLOTS"][index], tempRoasters);
             this_1.timeSlots.push(timeSlot);
         };
         var this_1 = this;
@@ -209,8 +268,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-date-fns */ "./node_modules/ngx-date-fns/esm5/ngx-date-fns.es5.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _Directives_scrollbar_directive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Directives/scrollbar.directive */ "./src/app/Directives/scrollbar.directive.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _Directives_scrollbar_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Directives/scrollbar.directive */ "./src/app/Directives/scrollbar.directive.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -223,15 +283,16 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"], _Directives_scrollbar_directive__WEBPACK_IMPORTED_MODULE_5__["ScrollbarDirective"]],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], ngx_date_fns__WEBPACK_IMPORTED_MODULE_3__["DateFnsModule"].forRoot()],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _Directives_scrollbar_directive__WEBPACK_IMPORTED_MODULE_6__["ScrollbarDirective"]],
+            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], ngx_date_fns__WEBPACK_IMPORTED_MODULE_3__["DateFnsModule"].forRoot()],
             providers: [_services_roaster_service__WEBPACK_IMPORTED_MODULE_0__["RoasterService"]],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -245,7 +306,7 @@ var AppModule = /** @class */ (function () {
 /*!******************************!*\
   !*** ./src/common/common.ts ***!
   \******************************/
-/*! exports provided: getWeekMondayByDate, WEEK_DAYS, forEachDateInRange, groupBy, TIME_SLOTS */
+/*! exports provided: getWeekMondayByDate, WEEK_DAYS, forEachDateInRange, groupBy, getTimeSlot, orderByDate, TIME_SLOTS, TIMES_ENUM, apiResponse */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -254,7 +315,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WEEK_DAYS", function() { return WEEK_DAYS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEachDateInRange", function() { return forEachDateInRange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "groupBy", function() { return groupBy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTimeSlot", function() { return getTimeSlot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderByDate", function() { return orderByDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TIME_SLOTS", function() { return TIME_SLOTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TIMES_ENUM", function() { return TIMES_ENUM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiResponse", function() { return apiResponse; });
 function getWeekMondayByDate(date) {
     date = new Date(date);
     var day = date.getDay(), diff = date.getDate() - day + (day == 0 ? -6 : 1);
@@ -280,6 +345,16 @@ function groupBy(array, key) {
         (a[estKey] ? a[estKey] : (a[estKey] = null || [])).push(e);
         return a;
     }, {});
+}
+function getTimeSlot(date) {
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    return TIMES_ENUM[hour + ":" + minutes];
+}
+function orderByDate(arr, dateProp) {
+    return arr.slice().sort(function (a, b) {
+        return a[dateProp] < b[dateProp] ? -1 : 1;
+    });
 }
 var TIME_SLOTS = {
     1: "08:00am - 08:30am",
@@ -307,6 +382,55 @@ var TIME_SLOTS = {
     23: "07:00pm - 07:30pm",
     24: "07:30pm - 08:30pm"
 };
+var TIMES_ENUM = {
+    "8:0": 1,
+    "8:30": 2,
+    "9:0": 3,
+    "9:30": 4,
+    "10:0": 5,
+    "10:30": 6,
+    "11:0": 7,
+    "11:30": 8,
+    "12:0": 9,
+    "12:30": 10,
+    "13:0": 11,
+    "13:30": 12,
+    "14:0": 13,
+    "14:30": 14,
+    "15:0": 15,
+    "15:30": 16,
+    "16:0": 17,
+    "16:30": 18,
+    "17:0": 19,
+    "17:30": 20,
+    "18:0": 21,
+    "18:30": 22,
+    "19:0": 23,
+    "19:30": 24
+};
+var apiResponse = [
+    {
+        rosterDate: "2018-11-02T00:00:00",
+        rosterTimePeriods: [
+            { startTime: "2018-11-02T08:30:00", endTime: "2018-11-02T09:00:00" },
+            { startTime: "2018-11-02T09:00:00", endTime: "2018-11-02T09:30:00" },
+            { startTime: "2018-11-02T10:00:00", endTime: "2018-11-02T10:30:00" },
+            { startTime: "2018-11-02T10:30:00", endTime: "2018-11-02T11:00:00" },
+            { startTime: "2018-11-02T11:00:00", endTime: "2018-11-02T11:30:00" },
+            { startTime: "2018-11-02T12:30:00", endTime: "2018-11-02T13:00:00" }
+        ]
+    },
+    {
+        rosterDate: "2018-11-03T00:00:00",
+        rosterTimePeriods: [
+            { startTime: "2018-11-03T10:00:00", endTime: "2018-11-03T10:30:00" },
+            { startTime: "2018-11-03T11:00:00", endTime: "2018-11-03T11:30:00" },
+            { startTime: "2018-11-03T12:30:00", endTime: "2018-11-03T13:00:00" },
+            { startTime: "2018-11-03T13:00:00", endTime: "2018-11-03T13:30:00" },
+            { startTime: "2018-11-03T13:30:00", endTime: "2018-11-03T14:00:00" }
+        ]
+    }
+];
 
 
 /***/ }),
@@ -445,12 +569,11 @@ var TimeSlot = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoasterService", function() { return RoasterService; });
-/* harmony import */ var _models_days__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../models/days */ "./src/models/days.ts");
-/* harmony import */ var _models_roaster__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../models/roaster */ "./src/models/roaster.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _common_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../common/common */ "./src/common/common.ts");
-/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns/add_days */ "./node_modules/date-fns/add_days/index.js");
-/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(date_fns_add_days__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _models_roaster__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../models/roaster */ "./src/models/roaster.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _common_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../common/common */ "./src/common/common.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -466,55 +589,33 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var RoasterService = /** @class */ (function () {
-    function RoasterService() {
+    function RoasterService(http) {
+        this.http = http;
     }
-    RoasterService.prototype.getRoasters = function (date) {
-        var roasters = [];
-        var actualRoasters = this.getActualRoasters(date);
-        var available = true;
-        for (var index = 1; index < 25; index++) {
-            for (var j = 0; j < actualRoasters.length; j++) {
-                var roaster_1 = actualRoasters[j];
-                if (roaster_1.timeSlot == index) {
-                    available = false;
-                    break;
-                }
-                else
-                    available = true;
-            }
-            var roaster = new _models_roaster__WEBPACK_IMPORTED_MODULE_1__["Roaster"](date, index, "JN#" + index, available);
-            roasters.push(roaster);
-        }
-        return roasters;
+    RoasterService.prototype.getRoastersFromApi = function (date) {
+        return this.http
+            .get("/api/appointment/GetRoasters?date=" + date.toISOString())
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (rootArray) {
+            var roasterArray = [];
+            rootArray.forEach(function (model) {
+                model.rosterTimePeriods.forEach(function (tp) {
+                    var startTime = tp.startTime;
+                    var time = new Date(startTime);
+                    var roster = new _models_roaster__WEBPACK_IMPORTED_MODULE_0__["Roaster"](time, Object(_common_common__WEBPACK_IMPORTED_MODULE_2__["getTimeSlot"])(time), "jn", true);
+                    roasterArray.push(roster);
+                });
+            });
+            return roasterArray;
+        }));
     };
-    RoasterService.prototype.getActualRoasters = function (date) {
-        var roasters = [];
-        for (var index = 1; index < 25; index++) {
-            if (index % 2 == 0) {
-                var roaster = new _models_roaster__WEBPACK_IMPORTED_MODULE_1__["Roaster"](date, index, "JN#" + index);
-                roasters.push(roaster);
-            }
-        }
-        return roasters;
-    };
-    RoasterService.prototype.getDaysOfWeek = function (date) {
-        var daysOfWeek = [];
-        date = new Date();
-        var monday = Object(_common_common__WEBPACK_IMPORTED_MODULE_3__["getWeekMondayByDate"])(date);
-        var sunday = date_fns_add_days__WEBPACK_IMPORTED_MODULE_4___default()(monday, 6);
-        var dayOfWeek;
-        var self = this;
-        Object(_common_common__WEBPACK_IMPORTED_MODULE_3__["forEachDateInRange"])(monday, sunday, function (date) {
-            dayOfWeek = new _models_days__WEBPACK_IMPORTED_MODULE_0__["DayOfWeek"](_common_common__WEBPACK_IMPORTED_MODULE_3__["WEEK_DAYS"][date.getDay()], date, self.getRoasters(date));
-            daysOfWeek.push(dayOfWeek);
-        });
-        return daysOfWeek;
+    RoasterService.prototype.getOfficeLocations = function () {
+        return this.http.get("api/appointment/officelocations");
     };
     RoasterService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: "root"
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], RoasterService);
     return RoasterService;
 }());

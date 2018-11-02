@@ -14,8 +14,9 @@
       <div class="calnedar_offices-list">
         <div class="form-inline">
           <label class="control-label"> List Offices: </label>
-          <select class="form-control">
-            <option> Select </option>
+          <select class="form-control" (change)="onOfficeLocationChanged($event)">
+            <option>Select</option>
+            <option *ngFor="let location of officeLocations"> {{location.name}} </option>
           </select>
         </div>
       </div>
