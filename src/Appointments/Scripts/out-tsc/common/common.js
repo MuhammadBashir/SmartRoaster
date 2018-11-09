@@ -29,31 +29,36 @@ export function getTimeSlot(date) {
     var minutes = date.getMinutes();
     return TIMES_ENUM[hour + ":" + minutes];
 }
+export function orderByDate(arr, dateProp) {
+    return arr.slice().sort(function (a, b) {
+        return a[dateProp] < b[dateProp] ? -1 : 1;
+    });
+}
 export var TIME_SLOTS = {
-    1: "08:00am - 08:30am",
-    2: "08:30am - 09:00am",
-    3: "09:00am - 09:30am",
-    4: "09:30am - 10:00am",
-    5: "10:00am - 10:30am",
-    6: "10:30am - 11:00am",
-    7: "11:00am - 11:30am",
-    8: "11:30am - 12:00pm",
-    9: "12:00pm - 12:30pm",
-    10: "12:30pm - 01:00pm",
-    11: "01:00pm - 01:30pm",
-    12: "01:30pm - 02:00pm",
-    13: "02:00pm - 02:30pm",
-    14: "02:30pm - 03:00pm",
-    15: "03:00pm - 03:30pm",
-    16: "03:30pm - 04:00pm",
-    17: "04:00pm - 04:30pm",
-    18: "04:30pm - 05:00pm",
-    19: "05:00pm - 05:30pm",
-    20: "05:30pm - 06:00pm",
-    21: "06:00pm - 06:30pm",
-    22: "06:30pm - 07:00pm",
-    23: "07:00pm - 07:30pm",
-    24: "07:30pm - 08:30pm"
+    1: "08:00am",
+    2: "08:30am",
+    3: "09:00am",
+    4: "09:30am",
+    5: "10:00am",
+    6: "10:30am",
+    7: "11:00am",
+    8: "11:30am",
+    9: "12:00pm",
+    10: "12:30pm",
+    11: "01:00pm",
+    12: "01:30pm",
+    13: "02:00pm",
+    14: "02:30pm",
+    15: "03:00pm",
+    16: "03:30pm",
+    17: "04:00pm",
+    18: "04:30pm",
+    19: "05:00pm",
+    20: "05:30pm",
+    21: "06:00pm",
+    22: "06:30pm",
+    23: "07:00pm",
+    24: "07:30pm"
 };
 export var TIMES_ENUM = {
     "8:0": 1,

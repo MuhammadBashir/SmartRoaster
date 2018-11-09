@@ -9,15 +9,24 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { DateFnsModule } from "ngx-date-fns";
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgSelectModule } from "@ng-select/ng-select";
 import { AppComponent } from "./app.component";
-import { ScrollbarDirective } from "./Directives/scrollbar.directive";
+import { AddScheduleComponent } from "./add-schedule.component";
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         NgModule({
-            declarations: [AppComponent, ScrollbarDirective],
-            imports: [BrowserModule, HttpClientModule, DateFnsModule.forRoot()],
+            declarations: [AppComponent, AddScheduleComponent],
+            imports: [
+                BrowserModule,
+                HttpClientModule,
+                DateFnsModule.forRoot(),
+                FormsModule,
+                NgSelectModule,
+                ReactiveFormsModule
+            ],
             providers: [RoasterService],
             bootstrap: [AppComponent]
         })

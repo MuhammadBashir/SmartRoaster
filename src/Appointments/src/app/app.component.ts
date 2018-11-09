@@ -11,7 +11,7 @@ import {
   orderByDate
 } from "../common/common";
 import { TimeSlot } from "../models/timeslots";
-import addDays from "date-fns/add_days";
+import * as addDays from "date-fns/add_days";
 
 @Component({
   selector: "app-root",
@@ -29,40 +29,70 @@ export class AppComponent implements OnInit {
   isSubscriptionComplete: boolean;
 
   officeLocations: any[];
-
+  officeLocation;
+  week: Date;
   constructor(private roasterService: RoasterService) {}
   ngOnInit(): void {
-    this.getAllWeeksRoasters(new Date());
+    this.week = getWeekMondayByDate(new Date());
     this.getOfficeLocations();
   }
   getOfficeLocations() {
-    this.roasterService
-      .getOfficeLocations()
-      .subscribe(locations => (this.officeLocations = locations));
+    this.roasterService.getOfficeLocations().subscribe(locations => {
+      this.officeLocations = locations;
+      this.officeLocation = this.officeLocations[0].officeLocationId;
+      this.getAllWeeksRoasters(this.week, this.officeLocation);
+    });
   }
 
-  getAllWeeksRoasters(date: Date): any {
-    date = new Date();
+  onOfficeLocationChanged() {
+    this.daysOfWeek = [];
+    this.timeSlots = [];
+    this.getAllWeeksRoasters(this.week, this.officeLocation);
+  }
+
+  changeWeek(changeSwitch) {
+    changeSwitch == 1
+      ? (this.week = addDays(this.week, -7))
+      : (this.week = addDays(this.week, 7));
+    this.daysOfWeek = [];
+    this.timeSlots = [];
+
+    this.getAllWeeksRoasters(this.week, this.officeLocation);
+  }
+
+  getAllWeeksRoasters(date: Date, officeLocation: number): any {
     let monday = getWeekMondayByDate(date);
     let sunday = addDays(monday, 6);
     let dayOfWeek: DayOfWeek;
     let self = this;
-    forEachDateInRange(monday, sunday, function(date: Date) {
-      self.roasterService.getRoastersFromApi(date).subscribe(roaster => {
-        dayOfWeek = new DayOfWeek(WEEK_DAYS[date.getDay()], date, []);
-        dayOfWeek.roasters = self.setRosters(roaster, date);
-        self.daysOfWeek.push(dayOfWeek);
+
+    this.roasterService
+      .getRoastersFromApi(monday, officeLocation)
+      .subscribe(roaster => {
+        forEachDateInRange(monday, sunday, function(date: Date) {
+          dayOfWeek = new DayOfWeek(WEEK_DAYS[date.getDay()], date, []);
+          let todaysRosters: Roaster[] = [];
+          roaster.forEach(apiRoaster => {
+            if (
+              apiRoaster.date.toDateString() === dayOfWeek.date.toDateString()
+            ) {
+              todaysRosters.push(apiRoaster);
+            }
+          });
+          dayOfWeek.roasters = self.setRosters(todaysRosters, date);
+          self.daysOfWeek.push(dayOfWeek);
+          self.isSubscriptionComplete = true;
+        });
       });
-      self.isSubscriptionComplete = true;
-    });
+
     setTimeout(() => {
       if (this.isSubscriptionComplete) {
         this.setTimeSlots();
       }
     }, 1000);
   }
+
   setDaysOfWeek(actualRosters: Roaster[], date: Date) {
-    date = new Date();
     let monday = getWeekMondayByDate(date);
     let sunday = addDays(monday, 6);
     let dayOfWeek: DayOfWeek;
@@ -81,7 +111,7 @@ export class AppComponent implements OnInit {
           break;
         } else available = true;
       }
-      let roaster = new Roaster(new Date(), index, `JN#${index}`, available);
+      let roaster = new Roaster(date, index, `JN#${index}`, available);
       finalizedRosters.push(roaster);
     }
     return finalizedRosters;

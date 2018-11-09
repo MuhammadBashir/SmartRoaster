@@ -135,42 +135,42 @@ namespace Appointments.Repositories.MockRepositories
                 },
                 new Suburbs
                 {
-                    SuburbId = 1,
+                    SuburbId = 2,
                     Suburb = "ANDREWS",
                     StateName = "QLD",
                     PostCode = "4220"
                 },
                 new Suburbs
                 {
-                    SuburbId = 1,
+                    SuburbId = 3,
                     Suburb = "ANSTEAD",
                     StateName = "QLD",
                     PostCode = "4070"
                 },
                 new Suburbs
                 {
-                    SuburbId = 1,
+                    SuburbId = 10,
                     Suburb = "ASHGROVE",
                     StateName = "QLD",
                     PostCode = "4060"
                 },
                 new Suburbs
                 {
-                    SuburbId = 1,
+                    SuburbId = 11,
                     Suburb = "ASHMORE",
                     StateName = "QLD",
                     PostCode = "4214"
                 },
                 new Suburbs
                 {
-                    SuburbId = 1,
+                    SuburbId = 12,
                     Suburb = "AUSTINVILLE",
                     StateName = "QLD",
                     PostCode = "4213"
                 },
                 new Suburbs
                 {
-                    SuburbId = 1,
+                    SuburbId = 13,
                     Suburb = "BALD HILLS",
                     StateName = "QLD",
                     PostCode = "4036"
@@ -239,7 +239,7 @@ namespace Appointments.Repositories.MockRepositories
                 }
             };
         }
-        public List<Roaster> GetRoasters(DateTime date)
+        public List<Roaster> GetRoasters(DateTime date, int locationId)
         {
             var roasterDate = new DateTime(2018, 11, 02);
             var rosters =  new List<Roaster>
@@ -270,7 +270,8 @@ namespace Appointments.Repositories.MockRepositories
                             EndTime = new DateTime(2018,11,02,11,30,00).AddMinutes(30)
                         }
 
-                    }
+                    },
+                    
                 },
                 new Roaster
                 {
@@ -327,9 +328,8 @@ namespace Appointments.Repositories.MockRepositories
                         }
                     }
                 }
-
             };
-            return rosters.Where(r => r.RosterDate.Date == date.Date).ToList();
+            return rosters.Where(r => r.RosterDate.Date >= date.Date && r.RosterDate <= date.AddDays(7)).ToList();
         }
     }
 }

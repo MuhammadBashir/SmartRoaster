@@ -11,9 +11,9 @@ import { RoasterService } from "./../services/roaster.service";
 import { Component } from "@angular/core";
 import { DayOfWeek } from "../models/days";
 import { Roaster } from "../models/roaster";
-import { groupBy, TIME_SLOTS, getWeekMondayByDate, forEachDateInRange, WEEK_DAYS } from "../common/common";
+import { groupBy, TIME_SLOTS, getWeekMondayByDate, forEachDateInRange, WEEK_DAYS, orderByDate } from "../common/common";
 import { TimeSlot } from "../models/timeslots";
-import addDays from "date-fns/add_days";
+import * as addDays from "date-fns/add_days";
 var AppComponent = /** @class */ (function () {
     function AppComponent(roasterService) {
         this.roasterService = roasterService;
@@ -22,23 +22,65 @@ var AppComponent = /** @class */ (function () {
         this.timeSlots = [];
     }
     AppComponent.prototype.ngOnInit = function () {
+        this.week = getWeekMondayByDate(new Date());
+        this.getOfficeLocations();
+    };
+    AppComponent.prototype.getOfficeLocations = function () {
         var _this = this;
-        this.roasterService.getRoastersFromApi(new Date()).subscribe(function (roaster) {
-            _this.setDaysOfWeek(roaster, new Date());
-            _this.setTimeSlots();
+        this.roasterService.getOfficeLocations().subscribe(function (locations) {
+            _this.officeLocations = locations;
+            _this.officeLocation = _this.officeLocations[0].officeLocationId;
+            _this.getAllWeeksRoasters(_this.week, _this.officeLocation);
         });
     };
-    AppComponent.prototype.setDaysOfWeek = function (actualRosters, date) {
-        date = new Date();
+    AppComponent.prototype.onOfficeLocationChanged = function () {
+        this.daysOfWeek = [];
+        this.timeSlots = [];
+        this.getAllWeeksRoasters(this.week, this.officeLocation);
+    };
+    AppComponent.prototype.changeWeek = function (changeSwitch) {
+        changeSwitch == 1
+            ? (this.week = addDays(this.week, -7))
+            : (this.week = addDays(this.week, 7));
+        this.daysOfWeek = [];
+        this.timeSlots = [];
+        this.getAllWeeksRoasters(this.week, this.officeLocation);
+    };
+    AppComponent.prototype.getAllWeeksRoasters = function (date, officeLocation) {
+        var _this = this;
         var monday = getWeekMondayByDate(date);
         var sunday = addDays(monday, 6);
         var dayOfWeek;
         var self = this;
-        forEachDateInRange(monday, sunday, function (date) {
-            dayOfWeek = new DayOfWeek(WEEK_DAYS[date.getDay()], date, []);
-            dayOfWeek.roasters = self.setRosters(actualRosters, date);
-            self.daysOfWeek.push(dayOfWeek);
+        this.roasterService
+            .getRoastersFromApi(monday, officeLocation)
+            .subscribe(function (roaster) {
+            forEachDateInRange(monday, sunday, function (date) {
+                dayOfWeek = new DayOfWeek(WEEK_DAYS[date.getDay()], date, []);
+                var todaysRosters = [];
+                roaster.forEach(function (apiRoaster) {
+                    if (apiRoaster.date.toDateString() === dayOfWeek.date.toDateString()) {
+                        todaysRosters.push(apiRoaster);
+                    }
+                });
+                dayOfWeek.roasters = self.setRosters(todaysRosters, date);
+                self.daysOfWeek.push(dayOfWeek);
+                self.isSubscriptionComplete = true;
+            });
         });
+        setTimeout(function () {
+            if (_this.isSubscriptionComplete) {
+                _this.setTimeSlots();
+            }
+        }, 1000);
+    };
+    AppComponent.prototype.setDaysOfWeek = function (actualRosters, date) {
+        var monday = getWeekMondayByDate(date);
+        var sunday = addDays(monday, 6);
+        var dayOfWeek;
+        var self = this;
+        forEachDateInRange(monday, sunday, function (date) { });
+        this.setTimeSlots();
     };
     AppComponent.prototype.setRosters = function (actualRoasters, date) {
         var available = true;
@@ -53,13 +95,14 @@ var AppComponent = /** @class */ (function () {
                 else
                     available = true;
             }
-            var roaster = new Roaster(new Date(), index, "JN#" + index, available);
+            var roaster = new Roaster(date, index, "JN#" + index, available);
             finalizedRosters.push(roaster);
         }
         return finalizedRosters;
     };
     AppComponent.prototype.setTimeSlots = function () {
         var flatRoasters = [];
+        this.daysOfWeek = orderByDate(this.daysOfWeek, "date");
         this.daysOfWeek.forEach(function (day) {
             day.roasters.forEach(function (roaster) {
                 flatRoasters.push(roaster);

@@ -1,15 +1,7 @@
-import { rosterTimePeriods } from "./../models/roaster-time-periods";
 import { RoasterApiModel } from "./../models/roaster-api-model";
-import { Http } from "@angular/http";
-import { DayOfWeek } from "./../models/days";
 import { Roaster } from "./../models/roaster";
 import { Injectable } from "@angular/core";
-import {
-  getWeekMondayByDate,
-  WEEK_DAYS,
-  forEachDateInRange,
-  getTimeSlot
-} from "./../common/common";
+import { getTimeSlot } from "./../common/common";
 
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
@@ -20,10 +12,13 @@ import { map } from "rxjs/operators";
 })
 export class RoasterService {
   constructor(private http: HttpClient) {}
-  getRoastersFromApi(date: Date): Observable<Roaster[]> {
+  getRoastersFromApi(
+    date: Date,
+    officeLocationId: number
+  ): Observable<Roaster[]> {
     return this.http
       .get<RoasterApiModel[]>(
-        "/api/appointment/GetRoasters?date=" + date.toISOString()
+        `/api/appointment/GetRoasters?date=${date.toISOString()}&locationId=${officeLocationId}`
       )
       .pipe(
         map(rootArray => {
@@ -42,5 +37,23 @@ export class RoasterService {
   }
   getOfficeLocations() {
     return this.http.get<any[]>("api/appointment/officelocations");
+  }
+  getPhoneNumberOptions() {
+    return this.http.get<any[]>("api/appointment/PhoneLabels");
+  }
+  getEmailOptions() {
+    return this.http.get<any[]>("api/appointment/EmailLabels");
+  }
+  getBestTimeTocall() {
+    return this.http.get<any[]>("api/appointment/BestTimeToCalls");
+  }
+  getSuburbs() {
+    return this.http.get<any[]>("api/appointment/Suburbs");
+  }
+  getRegions() {
+    return this.http.get<any[]>("api/appointment/Regions");
+  }
+  getSources() {
+    return this.http.get<any[]>("api/appointment/Sources");
   }
 }

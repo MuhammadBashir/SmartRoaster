@@ -16,33 +16,9 @@ var RoasterService = /** @class */ (function () {
     function RoasterService(http) {
         this.http = http;
     }
-    RoasterService.prototype.getRoasters = function (date) {
-        var roasters = [];
-        var actualRoasters = this.getActualRoasters(date);
-        var available = true;
-        for (var index = 1; index < 25; index++) {
-            // for (let j = 0; j < actualRoasters.length; j++) {
-            //   const roaster = actualRoasters[j];
-            //   if (roaster.timeSlot == index) {
-            //     available = false;
-            //     break;
-            //   } else available = true;
-            // }
-            var roaster = new Roaster(date, index, "JN#" + index, available);
-            roasters.push(roaster);
-        }
-        return roasters;
-    };
-    RoasterService.prototype.getActualRoasters = function (date) {
-        var roasters;
-        this.getRoastersFromApi(date).subscribe(function (mappedRoasters) {
-            roasters = mappedRoasters;
-        });
-        return roasters;
-    };
-    RoasterService.prototype.getRoastersFromApi = function (date) {
+    RoasterService.prototype.getRoastersFromApi = function (date, officeLocationId) {
         return this.http
-            .get("/api/appointment/GetRoasters?date=" + date)
+            .get("/api/appointment/GetRoasters?date=" + date.toISOString() + "&locationId=" + officeLocationId)
             .pipe(map(function (rootArray) {
             var roasterArray = [];
             rootArray.forEach(function (model) {
@@ -55,6 +31,27 @@ var RoasterService = /** @class */ (function () {
             });
             return roasterArray;
         }));
+    };
+    RoasterService.prototype.getOfficeLocations = function () {
+        return this.http.get("api/appointment/officelocations");
+    };
+    RoasterService.prototype.getPhoneNumberOptions = function () {
+        return this.http.get("api/appointment/PhoneLabels");
+    };
+    RoasterService.prototype.getEmailOptions = function () {
+        return this.http.get("api/appointment/EmailLabels");
+    };
+    RoasterService.prototype.getBestTimeTocall = function () {
+        return this.http.get("api/appointment/BestTimeToCalls");
+    };
+    RoasterService.prototype.getSuburbs = function () {
+        return this.http.get("api/appointment/Suburbs");
+    };
+    RoasterService.prototype.getRegions = function () {
+        return this.http.get("api/appointment/Regions");
+    };
+    RoasterService.prototype.getSources = function () {
+        return this.http.get("api/appointment/Sources");
     };
     RoasterService = __decorate([
         Injectable({

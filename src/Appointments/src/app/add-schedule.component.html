@@ -1,0 +1,242 @@
+<form #f="ngForm" (submit)="submitForm(f)">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3 class="text-center"> User Details </h3>
+                <hr />
+                <div class="form">
+                    <h4> Company Information </h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Individual/Company </label>
+                                <select class="form-control" name="jobCustomerNameType" [(ngModel)]="jobCustomerNameType"
+                                    (change)="changeCustomerNameTypeId(jobCustomerNameType)">
+                                    <option value="1">Individual</option>
+                                    <option value="2">Company</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row relative" *ngIf="jobCustomerNameType == 2">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Company Name </label>
+                                <input type="text" name="companyName" ngModel class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> ABN </label>
+                                <input type="text" class="form-control" name="abn" ngModel />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> CAD </label>
+                                <input type="text" class="form-control" name="acn" ngModel />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <h4> Personal Information </h4>
+                    <div class="row relative" *ngFor="let contact of jobCustomerNameVm; let i = index;">
+                        <div ngModelGroup="contact-{{i}}">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Title </label>
+                                    <select class="form-control" [required]="i == 0" ngModel="{{contact.title}}" name="title">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Ms.">Ms.</option>
+                                        <option value="Dr.">Dr.</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> First Name </label>
+                                    <input type="text" class="form-control" [required]="i == 0" ngModel name="firstName" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Last Name </label>
+                                    <input type="text" class="form-control" ngModel name="lastName" />
+                                </div>
+                            </div>
+                            <input type="hidden" ngModel="{{jobCustomerNameType}}" name="jobCustomerNameTypeId" />
+                            <input type="hidden" ngModel="{{jobId}}" name="jobId" />
+                            <input type="hidden" ngModel="{{jobId}}" name="jobCustomerNameId" />
+                            <div class="btn_add-row">
+                                <a *ngIf="i < 2" href="#" (click)="jobCustomerNameVm.length < 3 ? addContactInfoItem() : return;"><i
+                                        class="fa fa-plus-circle"></i>
+                                </a>
+                                <a *ngIf="i > 0" href="#" (click)="removeContactInfoItem(i)"> <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h4> Contact Information </h4>
+                    <div class="row">
+                        <div *ngFor="let phone of phoneNumberLabels; let i = index;" class="col-md-4">
+                            <div class="form-group" ngModelGroup="phone-{{i}}">
+                                <label class="control-label">
+                                    {{phone.phoneLabelName}} </label>
+                                <input type="hidden" ngModel="{{phone.phoneLabelId}}" name="phoneLabelId" />
+                                <input type="text" class="form-control" ngModel name="phoneNumber" />
+                                <input type="hidden" ngModel="{{jobCustomerNameType}}" name="jobCustomerNameTypeId" />
+                                <input type="hidden" ngModel="{{jobId}}" name="jobId" />
+                                <input type="hidden" ngModel="{{jobPhoneNumberId}}" name="jobPhoneNumberId" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Best Time To Call </label>
+                                <select class="form-control" ngModel="{{bestTimeToCallId}}" name="bestTimeToCallId">
+                                    <option *ngFor="let call of bestCallTimes" value="{{call.bestTimeToCallId}}">{{call.optionName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4" *ngFor="let email of emails; let i = index;">
+                            <div class="form-group" ngModelGroup="email-{{i}}">
+                                <label class="control-label"> {{email.emailLabel}} </label>
+                                <input type="text" class="form-control" ngModel name="emailAddress" />
+                                <input type="hidden" ngModel="{{email.emailLabelId}}" name="emailLabelId" />
+                                <input type="hidden" ngModel="{{jobCustomerNameType}}" name="jobCustomerNameTypeId" />
+                                <input type="hidden" ngModel="{{jobEmailAddressId}}" name="jobEmailAddressId" />
+                                <input type="hidden" ngModel="{{jobId}}" name="jobId" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <h4> Your Address </h4>
+                    <div ngModelGroup="jobAddressVm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Address Line 1 </label>
+                                    <input type="text" class="form-control" name="streetLine1" ngModel />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Address Line 2 </label>
+                                    <input type="text" class="form-control" ngModel name="streetLine2" />
+                                </div>
+                            </div>
+                            <input type="hidden" name="jobAddressId" ngModel="{{jobAddressId}}" />
+                            <input type="hidden" name="jobId" ngModel="{{jobId}}" />
+                            <input type="hidden" name="jobAddressTypeId" ngModel="{{jobAddressTypeId}}" />
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Street Number </label>
+                                    <input type="text" class="form-control" ngModel name="streetNumber" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Lot Number </label>
+                                    <input type="text" class="form-control" ngModel name="lotNumber" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Suburb </label>
+                                    <ng-select [items]="suburbs" (change)="onSuburbChanged($event)" name="suburb"
+                                        [(ngModel)]="suburb" bindLabel="suburb" bindValue="suburbId"></ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> Post Code </label>
+                                    <input type="text" class="form-control" disabled value="{{postCode}}" />
+                                    <input type="hidden" ngModel="{{postCode}}" value="{{postCode}}" name="postCode" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"> State </label>
+                                    <input type="text" class="form-control" value="{{state}}" disabled>
+                                    <input type="hidden" ngModel="{{state}}" value="{{state}}" name="state" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <h4> Other Information </h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Timeframe </label>
+                                <select class="form-control" name="timeFrame" ngModel>
+                                    <option value="ASAP">ASAP</option>
+                                    <option value="6-12 Months">6-12 Months</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Finance </label>
+                                <select class="form-control" name="timeFrame" ngModel>
+                                    <option value="Cash/Finance">Cash/Finance</option>
+                                    <option value="Need Finance">Need Finance</option>
+                                    <option value="Home – Sell">Home – Sell</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Land </label>
+                                <select class="form-control" name="land" ngModel>
+                                    <option value="Have Land">Have Land</option>
+                                    <option value="No Land">No Land</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Region </label>
+                                <select class="form-control" ngModel="null" name="region" required>
+                                    <option>Select</option>
+                                    <option *ngFor="let region of regions" value="region.regionUid">{{region.regionName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Land Location </label>
+                                <select class="form-control">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Where did you hear about us? </label>
+                                <select class="form-control">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal"> Cancel </button>
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </div>
+    </div>
+</form>
