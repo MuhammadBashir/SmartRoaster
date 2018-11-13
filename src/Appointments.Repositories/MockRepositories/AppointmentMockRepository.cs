@@ -39,32 +39,32 @@ namespace Appointments.Repositories.MockRepositories
                 new Phone
                 {
                     PhoneLabelId = 1,
-                    PhoneLabelName = "Home"
+                    PhoneLabel = "Home"
                 },
                 new Phone
                 {
                     PhoneLabelId = 2,
-                    PhoneLabelName = "Mobile"
+                    PhoneLabel = "Mobile"
                 },
                 new Phone
                 {
                     PhoneLabelId = 3,
-                    PhoneLabelName = "Work"
+                    PhoneLabel = "Work"
                 },
                 new Phone
                 {
                     PhoneLabelId = 4,
-                    PhoneLabelName = "Fax"
+                    PhoneLabel = "Fax"
                 },
                 new Phone
                 {
                     PhoneLabelId = 5,
-                    PhoneLabelName = "Mobile 2"
+                    PhoneLabel = "Mobile 2"
                 },
                 new Phone
                 {
                     PhoneLabelId = 6,
-                    PhoneLabelName = "Work 2"
+                    PhoneLabel = "Work 2"
                 }
 
             };

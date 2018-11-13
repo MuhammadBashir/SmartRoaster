@@ -1,3 +1,4 @@
+<ngx-toasta></ngx-toasta>
 <div class="calendar-wraper">
   <div class="calendar-header">
     <h3 class="cal-main_title"> Appointments System </h3>
@@ -5,7 +6,7 @@
         (click)="changeWeek(2)"></i>
       <h3 class="cal-month_title"> {{week | date: 'MMM yyyy'}} </h3>
     </div>
-    <div class="btn-group" role="group" aria-label="...">
+    <div style="visibility: hidden;" class="btn-group" role="group" aria-label="...">
       <button type="button" class="btn btn-default"> Today </button>
     </div>
   </div>
@@ -39,7 +40,8 @@
       <!-- Body -->
       <div *ngFor="let timeSlot of timeSlots" class="calendar-row row-body">
         <div *ngFor="let roaster of timeSlot.roasters" class="calendar-col" [ngClass]="{available: roaster.available, taken: !roaster.available}"
-          [attr.data-toggle]="roaster.available ? 'modal':null" [attr.data-target]="roaster.available ? '#myModal' : null">
+          [attr.data-toggle]="roaster.available ? 'modal':null" [attr.data-target]="roaster.available ? '#myModal' : null"
+          (click)="sendTimeSlot(timeSlot, roaster.date)">
           <span> {{timeSlot.timeSlot}} </span>
         </div>
       </div>
@@ -52,5 +54,6 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <schedule-form></schedule-form>
+  <schedule-form (refreshCalendar)="refreshCalendar($event)" [officeLocationId]="officeLocation" [timeSlot]="selectedTimeSlot"
+    [rosterDate]="rosterDate"></schedule-form>
 </div>

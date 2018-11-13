@@ -3,6 +3,8 @@
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
 @import "../Content/jquery.mCustomScrollbar.min.css";
 @import "../node_modules/@ng-select/ng-select/themes/material.theme.css";
+@import "../node_modules/ngx-toasta/styles/style-bootstrap.css";
+
 
 body {
     font-family: 'Lato', sans-serif;

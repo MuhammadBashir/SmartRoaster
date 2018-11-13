@@ -36,6 +36,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.onOfficeLocationChanged = function () {
         this.daysOfWeek = [];
         this.timeSlots = [];
+        this.isSubscriptionComplete = false;
         this.getAllWeeksRoasters(this.week, this.officeLocation);
     };
     AppComponent.prototype.changeWeek = function (changeSwitch) {
@@ -44,10 +45,10 @@ var AppComponent = /** @class */ (function () {
             : (this.week = addDays(this.week, 7));
         this.daysOfWeek = [];
         this.timeSlots = [];
+        this.isSubscriptionComplete = false;
         this.getAllWeeksRoasters(this.week, this.officeLocation);
     };
     AppComponent.prototype.getAllWeeksRoasters = function (date, officeLocation) {
-        var _this = this;
         var monday = getWeekMondayByDate(date);
         var sunday = addDays(monday, 6);
         var dayOfWeek;
@@ -68,9 +69,16 @@ var AppComponent = /** @class */ (function () {
                 self.isSubscriptionComplete = true;
             });
         });
+        this.setTimeSlotsAfterSubscriptionComplete();
+    };
+    AppComponent.prototype.setTimeSlotsAfterSubscriptionComplete = function () {
+        var _this = this;
         setTimeout(function () {
             if (_this.isSubscriptionComplete) {
                 _this.setTimeSlots();
+            }
+            else {
+                _this.setTimeSlotsAfterSubscriptionComplete();
             }
         }, 1000);
     };
@@ -85,7 +93,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.setRosters = function (actualRoasters, date) {
         var available = true;
         var finalizedRosters = [];
-        for (var index = 1; index < 25; index++) {
+        for (var index = 1; index < 13; index++) {
             for (var j = 0; j < actualRoasters.length; j++) {
                 var roaster_1 = actualRoasters[j];
                 if (roaster_1.timeSlot == index) {
@@ -122,9 +130,13 @@ var AppComponent = /** @class */ (function () {
             this_1.timeSlots.push(timeSlot);
         };
         var this_1 = this;
-        for (var index = 1; index < 25; index++) {
+        for (var index = 1; index < 13; index++) {
             _loop_1(index);
         }
+    };
+    AppComponent.prototype.sendTimeSlot = function (ts, date) {
+        this.selectedTimeSlot = ts;
+        this.rosterDate = date;
     };
     AppComponent = __decorate([
         Component({

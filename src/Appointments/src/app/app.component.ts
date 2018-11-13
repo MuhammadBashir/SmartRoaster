@@ -31,6 +31,10 @@ export class AppComponent implements OnInit {
   officeLocations: any[];
   officeLocation;
   week: Date;
+
+  selectedTimeSlot: TimeSlot;
+  rosterDate: Date;
+
   constructor(private roasterService: RoasterService) {}
   ngOnInit(): void {
     this.week = getWeekMondayByDate(new Date());
@@ -47,6 +51,7 @@ export class AppComponent implements OnInit {
   onOfficeLocationChanged() {
     this.daysOfWeek = [];
     this.timeSlots = [];
+    this.isSubscriptionComplete = false;
     this.getAllWeeksRoasters(this.week, this.officeLocation);
   }
 
@@ -56,7 +61,7 @@ export class AppComponent implements OnInit {
       : (this.week = addDays(this.week, 7));
     this.daysOfWeek = [];
     this.timeSlots = [];
-
+    this.isSubscriptionComplete = false;
     this.getAllWeeksRoasters(this.week, this.officeLocation);
   }
 
@@ -84,10 +89,15 @@ export class AppComponent implements OnInit {
           self.isSubscriptionComplete = true;
         });
       });
+    this.setTimeSlotsAfterSubscriptionComplete();
+  }
 
+  setTimeSlotsAfterSubscriptionComplete() {
     setTimeout(() => {
       if (this.isSubscriptionComplete) {
         this.setTimeSlots();
+      } else {
+        this.setTimeSlotsAfterSubscriptionComplete();
       }
     }, 1000);
   }
@@ -101,15 +111,15 @@ export class AppComponent implements OnInit {
     this.setTimeSlots();
   }
   setRosters(actualRoasters: Roaster[], date: Date): Roaster[] {
-    let available = true;
+    let available = false;
     let finalizedRosters: Roaster[] = [];
-    for (let index = 1; index < 25; index++) {
+    for (let index = 1; index < 13; index++) {
       for (let j = 0; j < actualRoasters.length; j++) {
         const roaster = actualRoasters[j];
         if (roaster.timeSlot == index) {
-          available = false;
+          available = true;
           break;
-        } else available = true;
+        } else available = false;
       }
       let roaster = new Roaster(date, index, `JN#${index}`, available);
       finalizedRosters.push(roaster);
@@ -128,7 +138,7 @@ export class AppComponent implements OnInit {
     let groupedRoasters: any[] = groupBy(flatRoasters, "timeSlot");
 
     let timeSlot: TimeSlot;
-    for (let index = 1; index < 25; index++) {
+    for (let index = 1; index < 13; index++) {
       const rawRoasters = groupedRoasters[index];
       let tempRoasters: Roaster[] = [];
       rawRoasters.forEach(rst => {
@@ -139,5 +149,16 @@ export class AppComponent implements OnInit {
       timeSlot = new TimeSlot(index, TIME_SLOTS[index], tempRoasters);
       this.timeSlots.push(timeSlot);
     }
+  }
+
+  refreshCalendar() {
+    this.daysOfWeek = [];
+    this.timeSlots = [];
+    this.getAllWeeksRoasters(this.week, this.officeLocation);
+  }
+
+  sendTimeSlot(ts, date: Date) {
+    this.selectedTimeSlot = ts;
+    this.rosterDate = date;
   }
 }

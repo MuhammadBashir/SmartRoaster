@@ -1,4 +1,4 @@
-<form #f="ngForm" (submit)="submitForm(f)">
+<form #f="ngForm">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -12,8 +12,8 @@
                                 <label class="control-label"> Individual/Company </label>
                                 <select class="form-control" name="jobCustomerNameType" [(ngModel)]="jobCustomerNameType"
                                     (change)="changeCustomerNameTypeId(jobCustomerNameType)">
-                                    <option value="1">Individual</option>
-                                    <option value="2">Company</option>
+                                    <option [ngValue]="1">Individual</option>
+                                    <option [ngValue]="2">Company</option>
                                 </select>
                             </div>
                         </div>
@@ -22,20 +22,29 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Company Name </label>
-                                <input type="text" name="companyName" ngModel class="form-control" />
+                                <input type="text" [required]="jobCustomerNameType == 2" #companyNameControl="ngModel"
+                                    name="companyName" [(ngModel)]="companyNameInit" class="form-control" />
+                                <div class="alert alert-danger" *ngIf="companyNameControl.touched && !companyNameControl.valid">This
+                                    field is
+                                    required</div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> ABN </label>
-                                <input type="text" class="form-control" name="abn" ngModel />
+                                <input type="text" name="companyAbn" #abnControlName="ngModel" class="form-control"
+                                    ngModel />
+
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label"> CAD </label>
-                                <input type="text" class="form-control" name="acn" ngModel />
+                                <label class="control-label"> ACN </label>
+                                <input type="text" name="companyAcn" #acnControlName="ngModel" class="form-control"
+                                    ngModel />
+
                             </div>
+
                         </div>
                     </div>
                     <hr />
@@ -46,7 +55,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Title </label>
-                                    <select class="form-control" [required]="i == 0" ngModel="{{contact.title}}" name="title">
+                                    <select class="form-control" [required]="i == 0" #title="ngModel" ngModel="{{contact.title}}"
+                                        name="title">
                                         <option value="Mr.">Mr.</option>
                                         <option value="Mrs.">Mrs.</option>
                                         <option value="Ms.">Ms.</option>
@@ -57,18 +67,26 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> First Name </label>
-                                    <input type="text" class="form-control" [required]="i == 0" ngModel name="firstName" />
+                                    <input type="text" class="form-control" #firstName="ngModel" [required]="i == 0"
+                                        ngModel name="firstName" />
+                                    <div class="alert alert-danger" *ngIf="i == 0 && lastName.touched && !lastName.valid">
+                                        This field is required
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Last Name </label>
-                                    <input type="text" class="form-control" ngModel name="lastName" />
+                                    <input type="text" #lastName="ngModel" [required]="i == 0" class="form-control"
+                                        ngModel name="lastName" />
+                                </div>
+                                <div class="alert alert-danger" *ngIf="i == 0 && lastName.touched && !lastName.valid">
+                                    This field is required
                                 </div>
                             </div>
                             <input type="hidden" ngModel="{{jobCustomerNameType}}" name="jobCustomerNameTypeId" />
-                            <input type="hidden" ngModel="{{jobId}}" name="jobId" />
-                            <input type="hidden" ngModel="{{jobId}}" name="jobCustomerNameId" />
+                            <!-- <input type="hidden" ngModel="{{jobId}}" name="jobId" />
+                            <input type="hidden" ngModel="{{jobId}}" name="jobCustomerNameId" /> -->
                             <div class="btn_add-row">
                                 <a *ngIf="i < 2" href="#" (click)="jobCustomerNameVm.length < 3 ? addContactInfoItem() : return;"><i
                                         class="fa fa-plus-circle"></i>
@@ -82,40 +100,53 @@
                     <hr />
 
                     <h4> Contact Information </h4>
+                    <h4> Phone Numbers </h4>
                     <div class="row">
                         <div *ngFor="let phone of phoneNumberLabels; let i = index;" class="col-md-4">
                             <div class="form-group" ngModelGroup="phone-{{i}}">
                                 <label class="control-label">
-                                    {{phone.phoneLabelName}} </label>
-                                <input type="hidden" ngModel="{{phone.phoneLabelId}}" name="phoneLabelId" />
-                                <input type="text" class="form-control" ngModel name="phoneNumber" />
+                                    {{phone.phoneLabel}} </label>
+                                <input type="text" class="form-control" minlength="10" maxlength="11" numberOnly
+                                    #phoneLabel="ngModel" [required]="phone.phoneLabelId == 2" ngModel name="phoneNumber" />
                                 <input type="hidden" ngModel="{{jobCustomerNameType}}" name="jobCustomerNameTypeId" />
-                                <input type="hidden" ngModel="{{jobId}}" name="jobId" />
-                                <input type="hidden" ngModel="{{jobPhoneNumberId}}" name="jobPhoneNumberId" />
+                                <input type="hidden" ngModel="{{phone.phoneLabelId}}" name="phoneLabelId" />
+                                <!-- <input type="hidden" ngModel="{{jobId}}" name="jobId" />
+                                <input type="hidden" ngModel="{{jobPhoneNumberId}}" name="jobPhoneNumberId" /> -->
+                                <div class="alert alert-danger" *ngIf="phone.phoneLabelId == 2 && phoneLabel.touched && !phoneLabel.valid">
+                                    Please enter a valid phone number
+                                </div>
                             </div>
                         </div>
-
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Best Time To Call </label>
-                                <select class="form-control" ngModel="{{bestTimeToCallId}}" name="bestTimeToCallId">
+                                <select class="form-control" [(ngModel)]="bestTimeToCallId" #bestTimeToCall required
+                                    name="bestTimeToCallId">
                                     <option *ngFor="let call of bestCallTimes" value="{{call.bestTimeToCallId}}">{{call.optionName}}</option>
                                 </select>
+                                <div *ngIf="bestTimeToCall.touched && !bestTimeToCall.valid">This field is required</div>
                             </div>
                         </div>
                     </div>
-
+                    <hr />
+                    <h4> Email Addresses </h4>
                     <div class="row">
+
                         <div class="col-md-4" *ngFor="let email of emails; let i = index;">
                             <div class="form-group" ngModelGroup="email-{{i}}">
                                 <label class="control-label"> {{email.emailLabel}} </label>
-                                <input type="text" class="form-control" ngModel name="emailAddress" />
+                                <input type="text" class="form-control" ngModel name="emailAddress" #emailControl="ngModel"
+                                    pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" />
                                 <input type="hidden" ngModel="{{email.emailLabelId}}" name="emailLabelId" />
                                 <input type="hidden" ngModel="{{jobCustomerNameType}}" name="jobCustomerNameTypeId" />
-                                <input type="hidden" ngModel="{{jobEmailAddressId}}" name="jobEmailAddressId" />
-                                <input type="hidden" ngModel="{{jobId}}" name="jobId" />
+                                <!-- <input type="hidden" ngModel="{{jobEmailAddressId}}" name="jobEmailAddressId" />
+                                <input type="hidden" ngModel="{{jobId}}" name="jobId" /> -->
                             </div>
+                            <div class="alert alert-danger" *ngIf="emailControl.touched && !emailControl.valid">Please
+                                provide a
+                                valid email address</div>
                         </div>
+                        <div class="alert alert-danger" *ngIf="!noEmail">At least on email should be provided</div>
                     </div>
                     <hr />
 
@@ -125,28 +156,32 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Address Line 1 </label>
-                                    <input type="text" class="form-control" name="streetLine1" ngModel />
+                                    <input type="text" #addressLine1="ngModel" required [(ngModel)]="address1" class="form-control"
+                                        name="streetLine1" />
                                 </div>
+                                <div class="alert alert-danger" *ngIf="addressLine1.touched && !addressLine1.valid">This
+                                    field is required!</div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Address Line 2 </label>
-                                    <input type="text" class="form-control" ngModel name="streetLine2" />
+                                    <input type="text" class="form-control" name="streetLine2" #addressLine2="ngModel"
+                                        [(ngModel)]="address2" />
                                 </div>
                             </div>
-                            <input type="hidden" name="jobAddressId" ngModel="{{jobAddressId}}" />
-                            <input type="hidden" name="jobId" ngModel="{{jobId}}" />
-                            <input type="hidden" name="jobAddressTypeId" ngModel="{{jobAddressTypeId}}" />
+                            <input type="hidden" name="jobAddressTypeId" #jobAddressTypeId="ngModel" ngModel="3" />
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Street Number </label>
-                                    <input type="text" class="form-control" ngModel name="streetNumber" />
+                                    <input type="text" class="form-control" name="streetNumber" #streetNumber="ngModel"
+                                        [(ngModel)]="streetNumberInit" />
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Lot Number </label>
-                                    <input type="text" class="form-control" ngModel name="lotNumber" />
+                                    <input type="text" class="form-control" [(ngModel)]="lotNumberInit" #lotNumber="ngModel"
+                                        name="lotNumber" />
                                 </div>
                             </div>
                         </div>
@@ -154,8 +189,13 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Suburb </label>
-                                    <ng-select [items]="suburbs" (change)="onSuburbChanged($event)" name="suburb"
-                                        [(ngModel)]="suburb" bindLabel="suburb" bindValue="suburbId"></ng-select>
+                                    <ng-select required [items]="suburbs" (change)="onSuburbChanged($event)" name="suburb"
+                                        [(ngModel)]="suburbInit" #suburb="ngModel" bindLabel="suburb" bindValue="suburbId"
+                                        (clear)="resetAddressFields()">
+
+                                    </ng-select>
+                                    <div class="alert alert-danger" *ngIf="suburb.touched && !suburb.valid">Please
+                                        enter a valid suburb</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -180,62 +220,81 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Timeframe </label>
-                                <select class="form-control" name="timeFrame" ngModel>
+                                <select class="form-control" name="timeFrame" required #timeFrame="ngModel" [(ngModel)]="timeFrameInit">
+                                    <option [ngValue]="null" disabled>Select</option>
                                     <option value="ASAP">ASAP</option>
                                     <option value="6-12 Months">6-12 Months</option>
                                 </select>
+                                <div class="alert alert-danger" *ngIf="timeFrame.touched && !timeFrame.valid">Please
+                                    enter a valid selection</div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Finance </label>
-                                <select class="form-control" name="timeFrame" ngModel>
+                                <select class="form-control" name="finance" required #finance="ngModel" [(ngModel)]="financeInit">
+                                    <option [ngValue]="null" disabled>Select</option>
                                     <option value="Cash/Finance">Cash/Finance</option>
                                     <option value="Need Finance">Need Finance</option>
                                     <option value="Home – Sell">Home – Sell</option>
                                 </select>
+                                <div class="alert alert-danger" *ngIf="finance.touched && !finance.valid">This field is
+                                    required
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Land </label>
-                                <select class="form-control" name="land" ngModel>
+                                <select class="form-control" required name="land" #land="ngModel" [(ngModel)]="landInit">
+                                    <option [ngValue]="null" disabled>Select</option>
                                     <option value="Have Land">Have Land</option>
                                     <option value="No Land">No Land</option>
                                 </select>
+                                <div class="alert alert-danger" *ngIf="land.touched && !land.valid">Please
+                                    enter a valid selection</div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Region </label>
-                                <select class="form-control" ngModel="null" name="region" required>
-                                    <option>Select</option>
-                                    <option *ngFor="let region of regions" value="region.regionUid">{{region.regionName}}</option>
+                                <select class="form-control" name="region" [(ngModel)]="regionInit" required #region="ngModel">
+                                    <option [ngValue]="null" disabled>Select</option>
+                                    <option *ngFor="let region of regions" [value]="region.regionUid">{{region.regionName}}</option>
                                 </select>
+                                <div class="alert alert-danger" *ngIf="region.touched && !region.valid">This field is
+                                    required!</div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Land Location </label>
-                                <select class="form-control">
-                                    <option>Select</option>
+                                <select class="form-control" name="landLocation" [(ngModel)]="landLocationInit"
+                                    #landLocation="ngModel">
+                                    <option [ngValue]="null" disabled>Select</option>
+                                    <option *ngFor="let suburb of suburbs" [value]="suburb.suburbId">{{suburb.suburb}}</option>
                                 </select>
                             </div>
+
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label"> Where did you hear about us? </label>
-                                <select class="form-control">
-                                    <option>Select</option>
+                                <select class="form-control" required [(ngModel)]="sourceInit" #source="ngModel" name="sourceId">
+                                    <option [ngValue]="null">Select</option>
+                                    <option *ngFor="let source of sources" [value]="source.sourceId">{{source.sourceName}}</option>
                                 </select>
+
                             </div>
+                            <div class="alert alert-danger" *ngIf="source.touched && !source.valid">This field is
+                                required!</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal"> Cancel </button>
-                <input type="submit" class="btn btn-primary" value="Submit" />
+                <button class="btn btn-default" id="btnCancel" data-dismiss="modal"> Cancel </button>
+                <button type="button" class="btn btn-primary" (click)="submitForm(f)"> Submit </button>
             </div>
         </div>
     </div>

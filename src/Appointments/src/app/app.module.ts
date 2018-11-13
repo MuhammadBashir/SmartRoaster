@@ -8,18 +8,22 @@ import { NgSelectModule } from "@ng-select/ng-select";
 
 import { AppComponent } from "./app.component";
 import { AddScheduleComponent } from "./add-schedule.component";
+import { NumberOnlyDirective } from "../directives/number-only.directive";
+import { ToastaModule } from "ngx-toasta";
+import { StorageService } from "../common/storage.service";
 
 @NgModule({
-  declarations: [AppComponent, AddScheduleComponent],
+  declarations: [AppComponent, AddScheduleComponent, NumberOnlyDirective],
   imports: [
     BrowserModule,
     HttpClientModule,
     DateFnsModule.forRoot(),
     FormsModule,
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastaModule.forRoot()
   ],
-  providers: [RoasterService],
+  providers: [RoasterService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

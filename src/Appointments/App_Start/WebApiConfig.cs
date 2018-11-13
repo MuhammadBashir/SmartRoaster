@@ -67,6 +67,11 @@ namespace Appointments
                 routeTemplate: "api/appointment/GetRoasters",
                 defaults: new { controller = "AppointmentsApi", action = "GetRoasters" }
             );
+            config.Routes.MapHttpRoute(
+                name: "CreateAppointment",
+                routeTemplate: "api/appointment/CreateAppointmentJob",
+                defaults: new { controller = "AppointmentsApi", action = "CreateAppointment" }
+            );
         }
     }
 }

@@ -13,12 +13,13 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { AppComponent } from "./app.component";
 import { AddScheduleComponent } from "./add-schedule.component";
+import { NumberOnlyDirective } from "../directives/number-only.directive";
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         NgModule({
-            declarations: [AppComponent, AddScheduleComponent],
+            declarations: [AppComponent, AddScheduleComponent, NumberOnlyDirective],
             imports: [
                 BrowserModule,
                 HttpClientModule,

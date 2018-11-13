@@ -6,11 +6,15 @@ import { getTimeSlot } from "./../common/common";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { AppointmentCreatedVm } from "../models/appointment-created";
 
 @Injectable({
   providedIn: "root"
 })
 export class RoasterService {
+  baseUrl = "http://115.70.199.185/api/appointment";
+  //baseUrl = "/api/appointment";
+
   constructor(private http: HttpClient) {}
   getRoastersFromApi(
     date: Date,
@@ -18,7 +22,9 @@ export class RoasterService {
   ): Observable<Roaster[]> {
     return this.http
       .get<RoasterApiModel[]>(
-        `/api/appointment/GetRoasters?date=${date.toISOString()}&locationId=${officeLocationId}`
+        `${
+          this.baseUrl
+        }/rostertime?selectedDate=${date.toISOString()}&locationId=${officeLocationId}`
       )
       .pipe(
         map(rootArray => {
@@ -27,7 +33,7 @@ export class RoasterService {
             model.rosterTimePeriods.forEach(tp => {
               const { startTime } = tp;
               const time = new Date(startTime);
-              let roster = new Roaster(time, getTimeSlot(time), "jn", true);
+              let roster = new Roaster(time, getTimeSlot(time), "jn", false);
               roasterArray.push(roster);
             });
           });
@@ -36,24 +42,30 @@ export class RoasterService {
       );
   }
   getOfficeLocations() {
-    return this.http.get<any[]>("api/appointment/officelocations");
+    return this.http.get<any[]>(`${this.baseUrl}/officelocations`);
   }
   getPhoneNumberOptions() {
-    return this.http.get<any[]>("api/appointment/PhoneLabels");
+    return this.http.get<any[]>(`${this.baseUrl}/phoneLabels`);
   }
   getEmailOptions() {
-    return this.http.get<any[]>("api/appointment/EmailLabels");
+    return this.http.get<any[]>(`${this.baseUrl}/emailLabels`);
   }
   getBestTimeTocall() {
-    return this.http.get<any[]>("api/appointment/BestTimeToCalls");
+    return this.http.get<any[]>(`${this.baseUrl}/besttimetocalls`);
   }
   getSuburbs() {
-    return this.http.get<any[]>("api/appointment/Suburbs");
+    return this.http.get<any[]>(`/api/appointment/suburbs`);
   }
   getRegions() {
-    return this.http.get<any[]>("api/appointment/Regions");
+    return this.http.get<any[]>(`${this.baseUrl}/regions`);
   }
   getSources() {
-    return this.http.get<any[]>("api/appointment/Sources");
+    return this.http.get<any[]>(`${this.baseUrl}/sources`);
+  }
+  createAppointment(appointmentPayLoad) {
+    return this.http.post<AppointmentCreatedVm>(
+      `${this.baseUrl}/CreateAppointmentJob`,
+      appointmentPayLoad
+    );
   }
 }

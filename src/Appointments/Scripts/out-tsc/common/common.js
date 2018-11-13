@@ -34,57 +34,57 @@ export function orderByDate(arr, dateProp) {
         return a[dateProp] < b[dateProp] ? -1 : 1;
     });
 }
+export function getObjectAsGroupArray(f, keyStartValue) {
+    return Object.keys(f.value)
+        .filter(function (obj) {
+        return obj.startsWith(keyStartValue);
+    })
+        .map(function (key) {
+        return f.value[key];
+    });
+}
+export function getStartTime(date, i) {
+    var stringTime = TIME_SLOTS[i];
+    var timeParts = stringTime.split(":");
+    var hoursPart = parseInt(timeParts[0]);
+    var minutesPart = parseInt(timeParts[1].replace("am", "").replace("pm", ""));
+    var hoursToAdd = 0;
+    if (hoursPart >= 8 && hoursPart <= 12) {
+        hoursToAdd = hoursPart;
+    }
+    else {
+        hoursToAdd += hoursPart + 12;
+    }
+    var setDate = date.setHours(hoursToAdd, minutesPart, 0, 0);
+    return new Date(setDate);
+}
 export var TIME_SLOTS = {
     1: "08:00am",
-    2: "08:30am",
-    3: "09:00am",
-    4: "09:30am",
-    5: "10:00am",
-    6: "10:30am",
-    7: "11:00am",
-    8: "11:30am",
-    9: "12:00pm",
-    10: "12:30pm",
-    11: "01:00pm",
-    12: "01:30pm",
-    13: "02:00pm",
-    14: "02:30pm",
-    15: "03:00pm",
-    16: "03:30pm",
-    17: "04:00pm",
-    18: "04:30pm",
-    19: "05:00pm",
-    20: "05:30pm",
-    21: "06:00pm",
-    22: "06:30pm",
-    23: "07:00pm",
-    24: "07:30pm"
+    2: "09:00am",
+    3: "10:00am",
+    4: "11:00am",
+    5: "12:00pm",
+    6: "01:00pm",
+    7: "02:00pm",
+    8: "03:00pm",
+    9: "04:00pm",
+    10: "05:00pm",
+    11: "06:00pm",
+    12: "07:00pm"
 };
 export var TIMES_ENUM = {
     "8:0": 1,
-    "8:30": 2,
-    "9:0": 3,
-    "9:30": 4,
-    "10:0": 5,
-    "10:30": 6,
-    "11:0": 7,
-    "11:30": 8,
-    "12:0": 9,
-    "12:30": 10,
-    "13:0": 11,
-    "13:30": 12,
-    "14:0": 13,
-    "14:30": 14,
-    "15:0": 15,
-    "15:30": 16,
-    "16:0": 17,
-    "16:30": 18,
-    "17:0": 19,
-    "17:30": 20,
-    "18:0": 21,
-    "18:30": 22,
-    "19:0": 23,
-    "19:30": 24
+    "9:0": 2,
+    "10:0": 3,
+    "11:0": 4,
+    "12:0": 5,
+    "13:0": 6,
+    "14:0": 7,
+    "15:0": 8,
+    "16:0": 9,
+    "17:0": 10,
+    "18:0": 11,
+    "19:0": 12
 };
 export var apiResponse = [
     {

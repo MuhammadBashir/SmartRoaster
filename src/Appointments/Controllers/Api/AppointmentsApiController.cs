@@ -1,5 +1,6 @@
 ﻿using Appointments.Repositories.Models;
 using Appointments.Services.Appointments;
+using Appointments.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,15 @@ namespace Appointments.Controllers.Api
         public async Task<List<Roaster>> GetRoasters(DateTime date, int locationId)
         {
             return await Task.Run(() => appointmentService.GetRoasters(date,locationId));
+        }
+        public async Task<AppointmentCreatedVm> CreateAppointment(AppointmentJobVm appointment)
+        {
+            return await Task.Run(() => new AppointmentCreatedVm()
+            {
+                JobId = 0,
+                SalesPersonMobile = "0222222222",
+                SalesPersonName = "033333333"
+            });
         }
     }
 }

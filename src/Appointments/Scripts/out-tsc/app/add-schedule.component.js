@@ -7,9 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
+import { TimeSlot } from "./../models/timeslots";
+import { Component, Input } from "@angular/core";
 import { RoasterService } from "../services/roaster.service";
 import { JobCustomerNameVm } from "../models/job-customer-names";
+import { getObjectAsGroupArray, getStartTime } from "../common/common";
+import { addMinutes } from "date-fns";
 var AddScheduleComponent = /** @class */ (function () {
     function AddScheduleComponent(rosterService) {
         this.rosterService = rosterService;
@@ -22,9 +25,9 @@ var AddScheduleComponent = /** @class */ (function () {
         this.jobAddressTypeId = 0;
         this.jobAddressId = 0;
         this.bestTimeToCallId = 0;
-        this.suburbId = 0;
         this.state = "";
         this.postCode = "";
+        this.noEmail = true;
     }
     AddScheduleComponent.prototype.addContactInfoItem = function () {
         this.jobCustomerNameVm.push(this.createContactArrayItem());
@@ -53,6 +56,12 @@ var AddScheduleComponent = /** @class */ (function () {
         this.rosterService.getSuburbs().subscribe(function (suburbs) {
             _this.suburbs = suburbs;
         });
+        this.rosterService.getRegions().subscribe(function (regions) {
+            _this.regions = regions;
+        });
+        this.rosterService
+            .getSources()
+            .subscribe(function (sources) { return (_this.sources = sources); });
         this.addContactInfoItem();
         this.initModels();
     };
@@ -64,18 +73,119 @@ var AddScheduleComponent = /** @class */ (function () {
         this.jobEmailAddressId = 0;
         this.jobAddressId = 0;
         this.jobAddressTypeId = 0;
-        this.land = null;
+        this.landInit = null;
+        this.timeFrameInit = null;
+        this.suburbInit = null;
+        this.regionInit = null;
+        this.landLocationInit = null;
+        this.aboutInit = null;
+        this.financeInit = null;
+        this.sourceInit = null;
     };
     AddScheduleComponent.prototype.onSuburbChanged = function (suburb) {
         if (suburb) {
-            console.log(suburb);
             this.postCode = this.suburbs.find(function (s) { return s.suburbId == suburb.suburbId; }).postCode;
             this.state = this.suburbs.find(function (s) { return s.suburbId == suburb.suburbId; }).stateName;
         }
     };
-    AddScheduleComponent.prototype.submitForm = function (f) {
-        console.log(f.value);
+    AddScheduleComponent.prototype.keyUpPhone = function (event) {
+        var pattern = /[0-9\+\-\ ]/;
+        var inputChar = String.fromCharCode(event.charCode);
+        if (!pattern.test(inputChar)) {
+            event.preventDefault();
+        }
     };
+    AddScheduleComponent.prototype.resetAddressFields = function () {
+        this.postCode = "";
+        this.state = "";
+    };
+    AddScheduleComponent.prototype.submitForm = function (f) {
+        this.form = f;
+        var jobCustomerNameVmList = getObjectAsGroupArray(f, "contact");
+        var jobPhoneNumberVmList = getObjectAsGroupArray(f, "phone");
+        var jobEmailAddressVmList = getObjectAsGroupArray(f, "email");
+        var _a = f.value, jobAddressVm = _a.jobAddressVm, jobCustomerNameType = _a.jobCustomerNameType, region = _a.region, bestTimeToCallId = _a.bestTimeToCallId, sourceId = _a.sourceId, landLocation = _a.landLocation;
+        var companyAbn1 = "";
+        var companyAcn1 = "";
+        var companyName1 = "";
+        if (jobCustomerNameType == 2) {
+            var _b = f.value, companyAbn = _b.companyAbn, companyAcn = _b.companyAcn, companyName = _b.companyName;
+            companyName1 = companyName;
+            companyAbn1 = companyAbn;
+            companyAcn1 = companyAcn;
+        }
+        var jobVm = {
+            jobId: 0,
+            jobUid: "",
+            jobNumber: "",
+            jobCustomerTypeId: jobCustomerNameType,
+            regionUid: region,
+            officeId: this.officeLocationId,
+            companyName: companyName1,
+            companyAbn: companyAbn1,
+            companyAcn: companyAcn1,
+            bestTimeToCallId: bestTimeToCallId,
+            copyTo: null,
+            addedBy: null,
+            jobStatus: null,
+            sourceId: sourceId,
+            client: null,
+            landLocationId: landLocation
+        };
+        var appointmentVm = {
+            appointmentDate: this.rosterDate,
+            appointmentLocation: this.officeLocationId,
+            startTime: getStartTime(this.rosterDate, this.timeSlot.timeSlotId).toISOString(),
+            endTime: addMinutes(getStartTime(this.rosterDate, this.timeSlot.timeSlotId), 60).toISOString(),
+            salesmanId: 0,
+            jobId: 0,
+            typeId: 0,
+            sourceId: sourceId,
+            addedBy: null,
+            dateAdded: new Date(),
+            status: null
+        };
+        var appointmentJobVm = {
+            jobVm: jobVm,
+            appointmentVm: appointmentVm,
+            jobCustomerNameVmList: jobCustomerNameVmList,
+            jobEmailAddressVmList: jobEmailAddressVmList,
+            jobPhoneNumberVmList: jobPhoneNumberVmList,
+            jobAddressVm: jobAddressVm
+        };
+        console.log("fullPayLoad", appointmentJobVm);
+        var emailFlag = false;
+        jobEmailAddressVmList.forEach(function (email) {
+            if (email.emailAddress && email.emailAddress != "")
+                emailFlag = true;
+        });
+        if (!emailFlag)
+            this.noEmail = false;
+        else
+            this.noEmail = true;
+        this.rosterService
+            .createAppointment(appointmentJobVm)
+            .subscribe(function (created) {
+            console.log(created);
+            if (f.valid) {
+                var cancelButton = document.getElementById("btnCancel");
+                cancelButton.click();
+            }
+        });
+        this.initModels();
+    };
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
+    ], AddScheduleComponent.prototype, "officeLocationId", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", TimeSlot)
+    ], AddScheduleComponent.prototype, "timeSlot", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Date)
+    ], AddScheduleComponent.prototype, "rosterDate", void 0);
     AddScheduleComponent = __decorate([
         Component({
             selector: "schedule-form",

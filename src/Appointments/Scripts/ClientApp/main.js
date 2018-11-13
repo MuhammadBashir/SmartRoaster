@@ -41,7 +41,7 @@ module.exports = ".mCustomScrollbar{touch-action:pinch-zoom}.mCustomScrollbar.mC
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form #f=\"ngForm\" (submit)=\"submitForm(f)\">\r\n    <div class=\"modal-dialog modal-lg\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                <h3 class=\"text-center\"> User Details </h3>\r\n                <hr />\r\n                <div class=\"form\">\r\n                    <h4> Company Information </h4>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Individual/Company </label>\r\n                                <select class=\"form-control\" name=\"jobCustomerNameType\" [(ngModel)]=\"jobCustomerNameType\"\r\n                                    (change)=\"changeCustomerNameTypeId(jobCustomerNameType)\">\r\n                                    <option value=\"1\">Individual</option>\r\n                                    <option value=\"2\">Company</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row relative\" *ngIf=\"jobCustomerNameType == 2\">\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Company Name </label>\r\n                                <input type=\"text\" name=\"companyName\" ngModel class=\"form-control\" />\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> ABN </label>\r\n                                <input type=\"text\" class=\"form-control\" name=\"abn\" ngModel />\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> CAD </label>\r\n                                <input type=\"text\" class=\"form-control\" name=\"acn\" ngModel />\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <hr />\r\n\r\n                    <h4> Personal Information </h4>\r\n                    <div class=\"row relative\" *ngFor=\"let contact of jobCustomerNameVm; let i = index;\">\r\n                        <div ngModelGroup=\"contact-{{i}}\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Title </label>\r\n                                    <select class=\"form-control\" [required]=\"i == 0\" ngModel=\"{{contact.title}}\" name=\"title\">\r\n                                        <option value=\"Mr.\">Mr.</option>\r\n                                        <option value=\"Mrs.\">Mrs.</option>\r\n                                        <option value=\"Ms.\">Ms.</option>\r\n                                        <option value=\"Dr.\">Dr.</option>\r\n                                    </select>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> First Name </label>\r\n                                    <input type=\"text\" class=\"form-control\" [required]=\"i == 0\" ngModel name=\"firstName\" />\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Last Name </label>\r\n                                    <input type=\"text\" class=\"form-control\" ngModel name=\"lastName\" />\r\n                                </div>\r\n                            </div>\r\n                            <input type=\"hidden\" ngModel=\"{{jobCustomerNameType}}\" name=\"jobCustomerNameTypeId\" />\r\n                            <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobId\" />\r\n                            <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobCustomerNameId\" />\r\n                            <div class=\"btn_add-row\">\r\n                                <a *ngIf=\"i < 2\" href=\"#\" (click)=\"jobCustomerNameVm.length < 3 ? addContactInfoItem() : return;\"><i\r\n                                        class=\"fa fa-plus-circle\"></i>\r\n                                </a>\r\n                                <a *ngIf=\"i > 0\" href=\"#\" (click)=\"removeContactInfoItem(i)\"> <i class=\"fa fa-trash\"></i>\r\n                                </a>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <hr />\r\n\r\n                    <h4> Contact Information </h4>\r\n                    <div class=\"row\">\r\n                        <div *ngFor=\"let phone of phoneNumberLabels; let i = index;\" class=\"col-md-4\">\r\n                            <div class=\"form-group\" ngModelGroup=\"phone-{{i}}\">\r\n                                <label class=\"control-label\">\r\n                                    {{phone.phoneLabelName}} </label>\r\n                                <input type=\"hidden\" ngModel=\"{{phone.phoneLabelId}}\" name=\"phoneLabelId\" />\r\n                                <input type=\"text\" class=\"form-control\" ngModel name=\"phoneNumber\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobCustomerNameType}}\" name=\"jobCustomerNameTypeId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobPhoneNumberId}}\" name=\"jobPhoneNumberId\" />\r\n                            </div>\r\n                        </div>\r\n\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Best Time To Call </label>\r\n                                <select class=\"form-control\" ngModel=\"{{bestTimeToCallId}}\" name=\"bestTimeToCallId\">\r\n                                    <option *ngFor=\"let call of bestCallTimes\" value=\"{{call.bestTimeToCallId}}\">{{call.optionName}}</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-4\" *ngFor=\"let email of emails; let i = index;\">\r\n                            <div class=\"form-group\" ngModelGroup=\"email-{{i}}\">\r\n                                <label class=\"control-label\"> {{email.emailLabel}} </label>\r\n                                <input type=\"text\" class=\"form-control\" ngModel name=\"emailAddress\" />\r\n                                <input type=\"hidden\" ngModel=\"{{email.emailLabelId}}\" name=\"emailLabelId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobCustomerNameType}}\" name=\"jobCustomerNameTypeId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobEmailAddressId}}\" name=\"jobEmailAddressId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobId\" />\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <hr />\r\n\r\n                    <h4> Your Address </h4>\r\n                    <div ngModelGroup=\"jobAddressVm\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Address Line 1 </label>\r\n                                    <input type=\"text\" class=\"form-control\" name=\"streetLine1\" ngModel />\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Address Line 2 </label>\r\n                                    <input type=\"text\" class=\"form-control\" ngModel name=\"streetLine2\" />\r\n                                </div>\r\n                            </div>\r\n                            <input type=\"hidden\" name=\"jobAddressId\" ngModel=\"{{jobAddressId}}\" />\r\n                            <input type=\"hidden\" name=\"jobId\" ngModel=\"{{jobId}}\" />\r\n                            <input type=\"hidden\" name=\"jobAddressTypeId\" ngModel=\"{{jobAddressTypeId}}\" />\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Street Number </label>\r\n                                    <input type=\"text\" class=\"form-control\" ngModel name=\"streetNumber\" />\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Lot Number </label>\r\n                                    <input type=\"text\" class=\"form-control\" ngModel name=\"lotNumber\" />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Suburb </label>\r\n                                    <ng-select [items]=\"suburbs\" (change)=\"onSuburbChanged($event)\" name=\"suburb\"\r\n                                        [(ngModel)]=\"suburb\" bindLabel=\"suburb\" bindValue=\"suburbId\"></ng-select>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Post Code </label>\r\n                                    <input type=\"text\" class=\"form-control\" disabled value=\"{{postCode}}\" />\r\n                                    <input type=\"hidden\" ngModel=\"{{postCode}}\" value=\"{{postCode}}\" name=\"postCode\" />\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> State </label>\r\n                                    <input type=\"text\" class=\"form-control\" value=\"{{state}}\" disabled>\r\n                                    <input type=\"hidden\" ngModel=\"{{state}}\" value=\"{{state}}\" name=\"state\" />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <hr />\r\n                    <h4> Other Information </h4>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Timeframe </label>\r\n                                <select class=\"form-control\" name=\"timeFrame\" ngModel>\r\n                                    <option value=\"ASAP\">ASAP</option>\r\n                                    <option value=\"6-12 Months\">6-12 Months</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Finance </label>\r\n                                <select class=\"form-control\" name=\"timeFrame\" ngModel>\r\n                                    <option value=\"Cash/Finance\">Cash/Finance</option>\r\n                                    <option value=\"Need Finance\">Need Finance</option>\r\n                                    <option value=\"Home – Sell\">Home – Sell</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Land </label>\r\n                                <select class=\"form-control\" name=\"land\" ngModel>\r\n                                    <option value=\"Have Land\">Have Land</option>\r\n                                    <option value=\"No Land\">No Land</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Region </label>\r\n                                <select class=\"form-control\" ngModel=\"null\" name=\"region\" required>\r\n                                    <option>Select</option>\r\n                                    <option *ngFor=\"let region of regions\" value=\"region.regionUid\">{{region.regionName}}</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Land Location </label>\r\n                                <select class=\"form-control\">\r\n                                    <option>Select</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Where did you hear about us? </label>\r\n                                <select class=\"form-control\">\r\n                                    <option>Select</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\"> Cancel </button>\r\n                <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\" />\r\n            </div>\r\n        </div>\r\n    </div>\r\n</form>"
+module.exports = "<form #f=\"ngForm\">\r\n    <div class=\"modal-dialog modal-lg\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                <h3 class=\"text-center\"> User Details </h3>\r\n                <hr />\r\n                <div class=\"form\">\r\n                    <h4> Company Information </h4>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Individual/Company </label>\r\n                                <select class=\"form-control\" name=\"jobCustomerNameType\" [(ngModel)]=\"jobCustomerNameType\"\r\n                                    (change)=\"changeCustomerNameTypeId(jobCustomerNameType)\">\r\n                                    <option [ngValue]=\"1\">Individual</option>\r\n                                    <option [ngValue]=\"2\">Company</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row relative\" *ngIf=\"jobCustomerNameType == 2\">\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Company Name </label>\r\n                                <input type=\"text\" [required]=\"jobCustomerNameType == 2\" #companyNameControl=\"ngModel\"\r\n                                    name=\"companyName\" [(ngModel)]=\"companyNameInit\" class=\"form-control\" />\r\n                                <div class=\"alert alert-danger\" *ngIf=\"companyNameControl.touched && !companyNameControl.valid\">This\r\n                                    field is\r\n                                    required</div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> ABN </label>\r\n                                <input type=\"text\" name=\"companyAbn\" #abnControlName=\"ngModel\" class=\"form-control\"\r\n                                    ngModel />\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> ACN </label>\r\n                                <input type=\"text\" name=\"companyAcn\" #acnControlName=\"ngModel\" class=\"form-control\"\r\n                                    ngModel />\r\n\r\n                            </div>\r\n\r\n                        </div>\r\n                    </div>\r\n                    <hr />\r\n\r\n                    <h4> Personal Information </h4>\r\n                    <div class=\"row relative\" *ngFor=\"let contact of jobCustomerNameVm; let i = index;\">\r\n                        <div ngModelGroup=\"contact-{{i}}\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Title </label>\r\n                                    <select class=\"form-control\" [required]=\"i == 0\" #title=\"ngModel\" ngModel=\"{{contact.title}}\"\r\n                                        name=\"title\">\r\n                                        <option value=\"Mr.\">Mr.</option>\r\n                                        <option value=\"Mrs.\">Mrs.</option>\r\n                                        <option value=\"Ms.\">Ms.</option>\r\n                                        <option value=\"Dr.\">Dr.</option>\r\n                                    </select>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> First Name </label>\r\n                                    <input type=\"text\" class=\"form-control\" #firstName=\"ngModel\" [required]=\"i == 0\"\r\n                                        ngModel name=\"firstName\" />\r\n                                    <div class=\"alert alert-danger\" *ngIf=\"i == 0 && lastName.touched && !lastName.valid\">\r\n                                        This field is required\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Last Name </label>\r\n                                    <input type=\"text\" #lastName=\"ngModel\" [required]=\"i == 0\" class=\"form-control\"\r\n                                        ngModel name=\"lastName\" />\r\n                                </div>\r\n                                <div class=\"alert alert-danger\" *ngIf=\"i == 0 && lastName.touched && !lastName.valid\">\r\n                                    This field is required\r\n                                </div>\r\n                            </div>\r\n                            <input type=\"hidden\" ngModel=\"{{jobCustomerNameType}}\" name=\"jobCustomerNameTypeId\" />\r\n                            <!-- <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobId\" />\r\n                            <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobCustomerNameId\" /> -->\r\n                            <div class=\"btn_add-row\">\r\n                                <a *ngIf=\"i < 2\" href=\"#\" (click)=\"jobCustomerNameVm.length < 3 ? addContactInfoItem() : return;\"><i\r\n                                        class=\"fa fa-plus-circle\"></i>\r\n                                </a>\r\n                                <a *ngIf=\"i > 0\" href=\"#\" (click)=\"removeContactInfoItem(i)\"> <i class=\"fa fa-trash\"></i>\r\n                                </a>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <hr />\r\n\r\n                    <h4> Contact Information </h4>\r\n                    <h4> Phone Numbers </h4>\r\n                    <div class=\"row\">\r\n                        <div *ngFor=\"let phone of phoneNumberLabels; let i = index;\" class=\"col-md-4\">\r\n                            <div class=\"form-group\" ngModelGroup=\"phone-{{i}}\">\r\n                                <label class=\"control-label\">\r\n                                    {{phone.phoneLabel}} </label>\r\n                                <input type=\"text\" class=\"form-control\" minlength=\"10\" maxlength=\"11\" numberOnly\r\n                                    #phoneLabel=\"ngModel\" [required]=\"phone.phoneLabelId == 2\" ngModel name=\"phoneNumber\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobCustomerNameType}}\" name=\"jobCustomerNameTypeId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{phone.phoneLabelId}}\" name=\"phoneLabelId\" />\r\n                                <!-- <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobPhoneNumberId}}\" name=\"jobPhoneNumberId\" /> -->\r\n                                <div class=\"alert alert-danger\" *ngIf=\"phone.phoneLabelId == 2 && phoneLabel.touched && !phoneLabel.valid\">\r\n                                    Please enter a valid phone number\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Best Time To Call </label>\r\n                                <select class=\"form-control\" [(ngModel)]=\"bestTimeToCallId\" #bestTimeToCall required\r\n                                    name=\"bestTimeToCallId\">\r\n                                    <option *ngFor=\"let call of bestCallTimes\" value=\"{{call.bestTimeToCallId}}\">{{call.optionName}}</option>\r\n                                </select>\r\n                                <div *ngIf=\"bestTimeToCall.touched && !bestTimeToCall.valid\">This field is required</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <hr />\r\n                    <h4> Email Addresses </h4>\r\n                    <div class=\"row\">\r\n\r\n                        <div class=\"col-md-4\" *ngFor=\"let email of emails; let i = index;\">\r\n                            <div class=\"form-group\" ngModelGroup=\"email-{{i}}\">\r\n                                <label class=\"control-label\"> {{email.emailLabel}} </label>\r\n                                <input type=\"text\" class=\"form-control\" ngModel name=\"emailAddress\" #emailControl=\"ngModel\"\r\n                                    pattern=\"^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$\" />\r\n                                <input type=\"hidden\" ngModel=\"{{email.emailLabelId}}\" name=\"emailLabelId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobCustomerNameType}}\" name=\"jobCustomerNameTypeId\" />\r\n                                <!-- <input type=\"hidden\" ngModel=\"{{jobEmailAddressId}}\" name=\"jobEmailAddressId\" />\r\n                                <input type=\"hidden\" ngModel=\"{{jobId}}\" name=\"jobId\" /> -->\r\n                            </div>\r\n                            <div class=\"alert alert-danger\" *ngIf=\"emailControl.touched && !emailControl.valid\">Please\r\n                                provide a\r\n                                valid email address</div>\r\n                        </div>\r\n                        <div class=\"alert alert-danger\" *ngIf=\"!noEmail\">At least on email should be provided</div>\r\n                    </div>\r\n                    <hr />\r\n\r\n                    <h4> Your Address </h4>\r\n                    <div ngModelGroup=\"jobAddressVm\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Address Line 1 </label>\r\n                                    <input type=\"text\" #addressLine1=\"ngModel\" required [(ngModel)]=\"address1\" class=\"form-control\"\r\n                                        name=\"streetLine1\" />\r\n                                </div>\r\n                                <div class=\"alert alert-danger\" *ngIf=\"addressLine1.touched && !addressLine1.valid\">This\r\n                                    field is required!</div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Address Line 2 </label>\r\n                                    <input type=\"text\" class=\"form-control\" name=\"streetLine2\" #addressLine2=\"ngModel\"\r\n                                        [(ngModel)]=\"address2\" />\r\n                                </div>\r\n                            </div>\r\n                            <input type=\"hidden\" name=\"jobAddressTypeId\" #jobAddressTypeId=\"ngModel\" ngModel=\"3\" />\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Street Number </label>\r\n                                    <input type=\"text\" class=\"form-control\" name=\"streetNumber\" #streetNumber=\"ngModel\"\r\n                                        [(ngModel)]=\"streetNumberInit\" />\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Lot Number </label>\r\n                                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"lotNumberInit\" #lotNumber=\"ngModel\"\r\n                                        name=\"lotNumber\" />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Suburb </label>\r\n                                    <ng-select required [items]=\"suburbs\" (change)=\"onSuburbChanged($event)\" name=\"suburb\"\r\n                                        [(ngModel)]=\"suburbInit\" #suburb=\"ngModel\" bindLabel=\"suburb\" bindValue=\"suburbId\"\r\n                                        (clear)=\"resetAddressFields()\">\r\n\r\n                                    </ng-select>\r\n                                    <div class=\"alert alert-danger\" *ngIf=\"suburb.touched && !suburb.valid\">Please\r\n                                        enter a valid suburb</div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Post Code </label>\r\n                                    <input type=\"text\" class=\"form-control\" disabled value=\"{{postCode}}\" />\r\n                                    <input type=\"hidden\" ngModel=\"{{postCode}}\" value=\"{{postCode}}\" name=\"postCode\" />\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> State </label>\r\n                                    <input type=\"text\" class=\"form-control\" value=\"{{state}}\" disabled>\r\n                                    <input type=\"hidden\" ngModel=\"{{state}}\" value=\"{{state}}\" name=\"state\" />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <hr />\r\n                    <h4> Other Information </h4>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Timeframe </label>\r\n                                <select class=\"form-control\" name=\"timeFrame\" required #timeFrame=\"ngModel\" [(ngModel)]=\"timeFrameInit\">\r\n                                    <option [ngValue]=\"null\" disabled>Select</option>\r\n                                    <option value=\"ASAP\">ASAP</option>\r\n                                    <option value=\"6-12 Months\">6-12 Months</option>\r\n                                </select>\r\n                                <div class=\"alert alert-danger\" *ngIf=\"timeFrame.touched && !timeFrame.valid\">Please\r\n                                    enter a valid selection</div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Finance </label>\r\n                                <select class=\"form-control\" name=\"finance\" required #finance=\"ngModel\" [(ngModel)]=\"financeInit\">\r\n                                    <option [ngValue]=\"null\" disabled>Select</option>\r\n                                    <option value=\"Cash/Finance\">Cash/Finance</option>\r\n                                    <option value=\"Need Finance\">Need Finance</option>\r\n                                    <option value=\"Home – Sell\">Home – Sell</option>\r\n                                </select>\r\n                                <div class=\"alert alert-danger\" *ngIf=\"finance.touched && !finance.valid\">This field is\r\n                                    required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Land </label>\r\n                                <select class=\"form-control\" required name=\"land\" #land=\"ngModel\" [(ngModel)]=\"landInit\">\r\n                                    <option [ngValue]=\"null\" disabled>Select</option>\r\n                                    <option value=\"Have Land\">Have Land</option>\r\n                                    <option value=\"No Land\">No Land</option>\r\n                                </select>\r\n                                <div class=\"alert alert-danger\" *ngIf=\"land.touched && !land.valid\">Please\r\n                                    enter a valid selection</div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Region </label>\r\n                                <select class=\"form-control\" name=\"region\" [(ngModel)]=\"regionInit\" required #region=\"ngModel\">\r\n                                    <option [ngValue]=\"null\" disabled>Select</option>\r\n                                    <option *ngFor=\"let region of regions\" [value]=\"region.regionUid\">{{region.regionName}}</option>\r\n                                </select>\r\n                                <div class=\"alert alert-danger\" *ngIf=\"region.touched && !region.valid\">This field is\r\n                                    required!</div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Land Location </label>\r\n                                <select class=\"form-control\" name=\"landLocation\" [(ngModel)]=\"landLocationInit\"\r\n                                    #landLocation=\"ngModel\">\r\n                                    <option [ngValue]=\"null\" disabled>Select</option>\r\n                                    <option *ngFor=\"let suburb of suburbs\" [value]=\"suburb.suburbId\">{{suburb.suburb}}</option>\r\n                                </select>\r\n                            </div>\r\n\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Where did you hear about us? </label>\r\n                                <select class=\"form-control\" required [(ngModel)]=\"sourceInit\" #source=\"ngModel\" name=\"sourceId\">\r\n                                    <option [ngValue]=\"null\">Select</option>\r\n                                    <option *ngFor=\"let source of sources\" [value]=\"source.sourceId\">{{source.sourceName}}</option>\r\n                                </select>\r\n\r\n                            </div>\r\n                            <div class=\"alert alert-danger\" *ngIf=\"source.touched && !source.valid\">This field is\r\n                                required!</div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default\" id=\"btnCancel\" data-dismiss=\"modal\"> Cancel </button>\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"submitForm(f)\"> Submit </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</form>"
 
 /***/ }),
 
@@ -55,9 +55,15 @@ module.exports = "<form #f=\"ngForm\" (submit)=\"submitForm(f)\">\r\n    <div cl
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddScheduleComponent", function() { return AddScheduleComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_roaster_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/roaster.service */ "./src/services/roaster.service.ts");
-/* harmony import */ var _models_job_customer_names__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/job-customer-names */ "./src/models/job-customer-names.ts");
+/* harmony import */ var _common_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../common/common */ "./src/common/common.ts");
+/* harmony import */ var _models_timeslots__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../models/timeslots */ "./src/models/timeslots.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_roaster_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/roaster.service */ "./src/services/roaster.service.ts");
+/* harmony import */ var _models_job_customer_names__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/job-customer-names */ "./src/models/job-customer-names.ts");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(date_fns__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _common_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/storage.service */ "./src/common/storage.service.ts");
+/* harmony import */ var ngx_toasta__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toasta */ "./node_modules/ngx-toasta/fesm5/ngx-toasta.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -70,11 +76,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+
+
+
 var AddScheduleComponent = /** @class */ (function () {
-    function AddScheduleComponent(rosterService) {
+    function AddScheduleComponent(rosterService, toastaService, toastaConfig, storage) {
         this.rosterService = rosterService;
+        this.toastaService = toastaService;
+        this.toastaConfig = toastaConfig;
+        this.storage = storage;
         this.jobCustomerNameVm = [];
-        this.jobCustomerNameType = 0;
+        this.jobCustomerNameType = 1;
         this.jobId = 0;
         this.jobCustomerNameId = 0;
         this.jobPhoneNumberId = 0;
@@ -82,15 +97,21 @@ var AddScheduleComponent = /** @class */ (function () {
         this.jobAddressTypeId = 0;
         this.jobAddressId = 0;
         this.bestTimeToCallId = 0;
-        this.suburbId = 0;
         this.state = "";
         this.postCode = "";
+        this.noEmail = true;
+        this.refreshCalendar = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
+        this.toastaConfig.theme = "bootstrap";
     }
     AddScheduleComponent.prototype.addContactInfoItem = function () {
         this.jobCustomerNameVm.push(this.createContactArrayItem());
     };
     AddScheduleComponent.prototype.createContactArrayItem = function () {
-        return new _models_job_customer_names__WEBPACK_IMPORTED_MODULE_2__["JobCustomerNameVm"]("Mr.", "", "", 0, 0, 0);
+        return new _models_job_customer_names__WEBPACK_IMPORTED_MODULE_4__["JobCustomerNameVm"]("Mr.", "", "", 0, 0, 0);
+    };
+    AddScheduleComponent.prototype.resetCustomerNameInfo = function () {
+        this.jobCustomerNameVm = [];
+        this.addContactInfoItem();
     };
     AddScheduleComponent.prototype.removeContactInfoItem = function (index) {
         this.jobCustomerNameVm.splice(index, 1);
@@ -113,10 +134,16 @@ var AddScheduleComponent = /** @class */ (function () {
         this.rosterService.getSuburbs().subscribe(function (suburbs) {
             _this.suburbs = suburbs;
         });
-        this.addContactInfoItem();
+        this.rosterService.getRegions().subscribe(function (regions) {
+            _this.regions = regions;
+        });
+        this.rosterService
+            .getSources()
+            .subscribe(function (sources) { return (_this.sources = sources); });
         this.initModels();
     };
     AddScheduleComponent.prototype.initModels = function () {
+        this.resetCustomerNameInfo();
         this.jobCustomerNameType = 1;
         this.jobId = 0;
         this.jobCustomerNameId = 0;
@@ -124,25 +151,174 @@ var AddScheduleComponent = /** @class */ (function () {
         this.jobEmailAddressId = 0;
         this.jobAddressId = 0;
         this.jobAddressTypeId = 0;
-        this.land = null;
+        this.landInit = null;
+        this.timeFrameInit = null;
+        this.suburbInit = null;
+        this.regionInit = null;
+        this.landLocationInit = null;
+        this.aboutInit = null;
+        this.financeInit = null;
+        this.sourceInit = null;
+        this.postCode = null;
+        this.state = null;
+        this.streetNumberInit = null;
+        this.lotNumberInit = null;
     };
     AddScheduleComponent.prototype.onSuburbChanged = function (suburb) {
         if (suburb) {
-            console.log(suburb);
             this.postCode = this.suburbs.find(function (s) { return s.suburbId == suburb.suburbId; }).postCode;
             this.state = this.suburbs.find(function (s) { return s.suburbId == suburb.suburbId; }).stateName;
         }
     };
-    AddScheduleComponent.prototype.submitForm = function (f) {
-        console.log(f.value);
+    AddScheduleComponent.prototype.keyUpPhone = function (event) {
+        var pattern = /[0-9\+\-\ ]/;
+        var inputChar = String.fromCharCode(event.charCode);
+        if (!pattern.test(inputChar)) {
+            event.preventDefault();
+        }
     };
+    AddScheduleComponent.prototype.resetAddressFields = function () {
+        this.postCode = "";
+        this.state = "";
+    };
+    AddScheduleComponent.prototype.addToast = function (message, heading, type) {
+        var toastOptions = {
+            title: heading,
+            msg: message,
+            showClose: true,
+            timeout: 5000,
+            theme: "bootstrap"
+        };
+        if (type == _common_common__WEBPACK_IMPORTED_MODULE_0__["ToastType"].Error)
+            this.toastaService.error(toastOptions);
+        if (type == _common_common__WEBPACK_IMPORTED_MODULE_0__["ToastType"].Success)
+            this.toastaService.success(toastOptions);
+        if (type == _common_common__WEBPACK_IMPORTED_MODULE_0__["ToastType"].Warning)
+            this.toastaService.warning(toastOptions);
+    };
+    AddScheduleComponent.prototype.submitForm = function (f) {
+        var _this = this;
+        this.form = f;
+        var jobCustomerNameVmList = Object(_common_common__WEBPACK_IMPORTED_MODULE_0__["getObjectAsGroupArray"])(f, "contact");
+        var jobPhoneNumberVmList = Object(_common_common__WEBPACK_IMPORTED_MODULE_0__["getObjectAsGroupArray"])(f, "phone");
+        var jobEmailAddressVmList = Object(_common_common__WEBPACK_IMPORTED_MODULE_0__["getObjectAsGroupArray"])(f, "email");
+        jobPhoneNumberVmList = jobPhoneNumberVmList.filter(function (f) { return f.phoneNumber != ""; });
+        jobEmailAddressVmList = jobEmailAddressVmList.filter(function (f) { return f.emailAddress != ""; });
+        var _a = f.value, jobAddressVm = _a.jobAddressVm, jobCustomerNameType = _a.jobCustomerNameType, region = _a.region, bestTimeToCallId = _a.bestTimeToCallId, sourceId = _a.sourceId, landLocation = _a.landLocation;
+        var companyAbn1 = "";
+        var companyAcn1 = "";
+        var companyName1 = "";
+        if (jobCustomerNameType == 2) {
+            var _b = f.value, companyAbn = _b.companyAbn, companyAcn = _b.companyAcn, companyName = _b.companyName;
+            companyName1 = companyName;
+            companyAbn1 = companyAbn;
+            companyAcn1 = companyAcn;
+        }
+        var jobVm = {
+            jobCustomerTypeId: jobCustomerNameType,
+            officeId: this.officeLocationId
+            // regionUid: region,
+            // jobId: 0,
+            // jobUid: "",
+            // jobNumber: "",
+            // companyName: companyName1,
+            // companyAbn: companyAbn1,
+            // companyAcn: companyAcn1,
+            // bestTimeToCallId: bestTimeToCallId,
+            // copyTo: null,
+            // addedBy: null,
+            // jobStatus: null,
+            // sourceId: sourceId,
+            // client: null,
+            // landLocationId: landLocation
+        };
+        var startTime = Object(_common_common__WEBPACK_IMPORTED_MODULE_0__["getStartTime"])(this.rosterDate, this.timeSlot.timeSlotId);
+        var endTime = Object(date_fns__WEBPACK_IMPORTED_MODULE_5__["addMinutes"])(Object(_common_common__WEBPACK_IMPORTED_MODULE_0__["getStartTime"])(this.rosterDate, this.timeSlot.timeSlotId), 60);
+        var appointmentVm = {
+            appointmentDate: this.rosterDate.toISOString(),
+            appointmentLocation: this.officeLocationId,
+            startTime: Object(date_fns__WEBPACK_IMPORTED_MODULE_5__["format"])(startTime, "hh:mm A"),
+            endTime: Object(date_fns__WEBPACK_IMPORTED_MODULE_5__["format"])(endTime, "hh:mm A")
+            // salesmanId: 0,
+            // jobId: 0,
+            // typeId: 0,
+            // sourceId: sourceId,
+            // addedBy: null,
+            // dateAdded: new Date(),
+            // status: null
+        };
+        var appointmentJobVm = {
+            jobVm: jobVm,
+            appointmentVm: appointmentVm,
+            jobCustomerNameVmList: jobCustomerNameVmList,
+            jobEmailAddressVmList: jobEmailAddressVmList,
+            jobPhoneNumberVmList: jobPhoneNumberVmList,
+            jobAddressVm: jobAddressVm
+        };
+        console.log("fullPayLoad", appointmentJobVm);
+        var emailFlag = false;
+        jobEmailAddressVmList.forEach(function (email) {
+            if (email.emailAddress && email.emailAddress != "")
+                emailFlag = true;
+        });
+        if (!emailFlag)
+            this.noEmail = false;
+        else
+            this.noEmail = true;
+        console.log("valid", this.form.valid);
+        var cancelButton = document.getElementById("btnCancel");
+        this.rosterService.createAppointment(appointmentJobVm).subscribe(function (created) {
+            console.log(created);
+            if (f.valid) {
+                _this.addToast("Your appointment was successfully set up on: " + Object(date_fns__WEBPACK_IMPORTED_MODULE_5__["format"])(appointmentVm.appointmentDate, "MM/DD/YYYY") + " / " + appointmentVm.startTime + ". For your reference, your job# : " + created.jobId, "Success", _common_common__WEBPACK_IMPORTED_MODULE_0__["ToastType"].Success);
+                cancelButton.click();
+                _this.form.reset();
+                _this.initModels();
+                _this.refreshCalendar.emit(true);
+            }
+        }, function (error) {
+            console.log(error);
+            if (error.status == 409 &&
+                error.message ==
+                    "The time slot that you chose is not available anymore!") {
+                _this.addToast("Sorry. This time was taken by someone else in past few seconds. Please select another time. Thank you!", "Oops!", _common_common__WEBPACK_IMPORTED_MODULE_0__["ToastType"].Warning);
+                console.log(error);
+                cancelButton.click();
+            }
+            else {
+                _this.addToast("Unexpected error has occurred. Please try again later or call us.", "Error!", _common_common__WEBPACK_IMPORTED_MODULE_0__["ToastType"].Error);
+                console.log(error);
+                cancelButton.click();
+            }
+        });
+    };
+    AddScheduleComponent.prototype.resetModal = function (appointmentVM) { };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        __metadata("design:type", Number)
+    ], AddScheduleComponent.prototype, "officeLocationId", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        __metadata("design:type", _models_timeslots__WEBPACK_IMPORTED_MODULE_1__["TimeSlot"])
+    ], AddScheduleComponent.prototype, "timeSlot", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        __metadata("design:type", Date)
+    ], AddScheduleComponent.prototype, "rosterDate", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
+        __metadata("design:type", Object)
+    ], AddScheduleComponent.prototype, "refreshCalendar", void 0);
     AddScheduleComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: "schedule-form",
             template: __webpack_require__(/*! ./add-schedule.component.html */ "./src/app/add-schedule.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_roaster_service__WEBPACK_IMPORTED_MODULE_1__["RoasterService"]])
+        __metadata("design:paramtypes", [_services_roaster_service__WEBPACK_IMPORTED_MODULE_3__["RoasterService"],
+            ngx_toasta__WEBPACK_IMPORTED_MODULE_7__["ToastaService"],
+            ngx_toasta__WEBPACK_IMPORTED_MODULE_7__["ToastaConfig"],
+            _common_storage_service__WEBPACK_IMPORTED_MODULE_6__["StorageService"]])
     ], AddScheduleComponent);
     return AddScheduleComponent;
 }());
@@ -158,7 +334,7 @@ var AddScheduleComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n@import url('https://fonts.googleapis.com/css?family=Lato:400,700');\n/* CSS Document */\nbody {\r\n    font-family: 'Lato', sans-serif;\r\n    font-size: 14px;\r\n    background: #F8FAFB;\r\n    overflow: hidden;\r\n}\nh1.h2,\r\nh3,\r\nh4,\r\nh5,\r\nh6 {\r\n    margin: 0;\r\n}\n.relative {\r\n    position: relative;\r\n}\n.btn-primary {\r\n    color: #fff;\r\n    background-color: #4D7CFE;\r\n    border-color: #4D7CFE;\r\n}\n.btn-primary.hover,\r\n.btn-primary:hover,\r\n.btn-primary.focus,\r\n.btn-primary:focus,\r\n.btn-primary.active,\r\n.btn-primary:active {\r\n    color: #fff;\r\n    background-color: #325eda;\r\n    border-color: #325eda;\r\n}\n.primColor {\r\n    color: #4D7CFE;\r\n}\n.calendar-wraper {\r\n    overflow: hidden;\r\n}\n.calendar-header {\r\n    padding: 15px 25px;\r\n    border-bottom: solid 1px rgba(0, 0, 0, 0.05);\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    background: #ffffff;\r\n}\n.cal-main_title {\r\n    color: #4D7CFE;\r\n    text-transform: uppercase;\r\n    font-size: 20px;\r\n    font-weight: 700;\r\n}\n.cal-week_sort {\r\n    margin-right: 5vw;\r\n}\n.cal-week_sort i {\r\n    vertical-align: middle;\r\n    color: rgba(0, 0, 0, 0.54);\r\n    display: inline-block;\r\n    padding: 0 10px;\r\n    cursor: pointer;\r\n    font-size: 16px;\r\n}\n.cal-week_sort .cal-month_title {\r\n    color: rgba(0, 0, 0, 0.54);\r\n    text-align: center;\r\n    font-size: 20px;\r\n    font-weight: 700;\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    margin-left: 2rem;\r\n}\n.calnedar_offices-list {\r\n    padding: 25px;\r\n}\n/*Form and Button Styles*/\n.btn {\r\n    border-radius: 2px;\r\n}\n.form-control {\r\n    background: #ffffff;\r\n    box-shadow: none;\r\n    border-radius: 2px;\r\n}\n.calnedar_offices-list .form-control {\r\n    width: 200px;\r\n    margin-left: 25px;\r\n}\n/*Calendar Body*/\n.calendar-body {\r\n    padding: 0;\r\n    background: #ffffff;\r\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);\r\n    height: calc(100vh - 65px);\r\n    overflow: hidden;\r\n}\n.calendar-wraper {\r\n    border: solid 1px rgba(0, 0, 0, 0.05);\r\n    border-collapse: collapse;\r\n    display: table;\r\n    width: 100%;\r\n}\n.calendar-row {\r\n    display: table-row;\r\n    vertical-align: inherit;\r\n    border-color: inherit;\r\n}\n.calendar-row:last-child .calendar-col {\r\n    border-bottom: none;\r\n}\n.calendar-col {\r\n    display: table-cell;\r\n    vertical-align: inherit;\r\n    text-align: left;\r\n    border: solid 1px rgba(0, 0, 0, 0.05);\r\n    padding: 6px 10px 15px 10px;\r\n}\n.row-header .calendar-col {\r\n    padding: 6px 10px 25px 10px;\r\n}\n.first-calendar-col {\r\n    width: 75px;\r\n    font-weight: normal;\r\n    text-align: right;\r\n}\n.row-header .calendar-col span {\r\n    color: rgba(0, 0, 0, 0.54);\r\n    font-weight: bold;\r\n}\n.row-header .calendar-col h4 {\r\n    color: rgba(0, 0, 0, 0.87);\r\n    font-size: 42px;\r\n    font-weight: normal;\r\n}\n.row-body .calendar-col span {\r\n    font-weight: normal;\r\n    font-size: 14px;\r\n    font-weight: 700;\r\n}\n.row-body .calendar-col.taken {\r\n    background: #F3F3F3;\r\n    cursor: not-allowed;\r\n}\n.row-body .calendar-col.taken span {\r\n    color: rgba(0, 0, 0, 0.54);\r\n}\n.row-body .calendar-col.available {\r\n    background: #5CB17E;\r\n    cursor: pointer;\r\n}\n.row-body .calendar-col.available span {\r\n    color: #ffffff;\r\n}\n/*Modal Popup Form Styles*/\n.modal-content {\r\n    border-radius: 0;\r\n}\n.modal-body {\r\n    padding: 25px;\r\n}\n.modal-body .form {\r\n    width: 90%;\r\n}\n.modal-body .form h4 {\r\n    color: rgba(0, 0, 0, 0.54);\r\n    font-size: 14px;\r\n    text-transform: uppercase;\r\n    margin-bottom: 30px;\r\n    font-weight: 700;\r\n}\n.btn_add-row {\r\n    position: absolute;\r\n    right: -50px;\r\n    top: 30px;\r\n}\n.btn_add-row a {\r\n    color: #4D7CFE;\r\n    padding: 0 5px;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9hcHAuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0Esb0VBQW9FO0FBRHBFLGtCQUFrQjtBQUdsQjtJQUNJLGdDQUFnQztJQUNoQyxnQkFBZ0I7SUFDaEIsb0JBQW9CO0lBQ3BCLGlCQUFpQjtDQUNwQjtBQUVEOzs7OztJQUtJLFVBQVU7Q0FDYjtBQUVEO0lBQ0ksbUJBQW1CO0NBQ3RCO0FBRUQ7SUFDSSxZQUFZO0lBQ1osMEJBQTBCO0lBQzFCLHNCQUFzQjtDQUN6QjtBQUVEOzs7Ozs7SUFNSSxZQUFZO0lBQ1osMEJBQTBCO0lBQzFCLHNCQUFzQjtDQUN6QjtBQUdEO0lBQ0ksZUFBZTtDQUNsQjtBQUVEO0lBQ0ksaUJBQWlCO0NBQ3BCO0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsNkNBQTZDO0lBQzdDLGNBQWM7SUFDZCwrQkFBK0I7SUFDL0Isb0JBQW9CO0lBQ3BCLG9CQUFvQjtDQUN2QjtBQUVEO0lBQ0ksZUFBZTtJQUNmLDBCQUEwQjtJQUMxQixnQkFBZ0I7SUFDaEIsaUJBQWlCO0NBQ3BCO0FBRUQ7SUFDSSxrQkFBa0I7Q0FDckI7QUFFRDtJQUNJLHVCQUF1QjtJQUN2QiwyQkFBMkI7SUFDM0Isc0JBQXNCO0lBQ3RCLGdCQUFnQjtJQUNoQixnQkFBZ0I7SUFDaEIsZ0JBQWdCO0NBQ25CO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0IsbUJBQW1CO0lBQ25CLGdCQUFnQjtJQUNoQixpQkFBaUI7SUFDakIsc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixrQkFBa0I7Q0FDckI7QUFFRDtJQUNJLGNBQWM7Q0FDakI7QUFFRCwwQkFBMEI7QUFDMUI7SUFDSSxtQkFBbUI7Q0FDdEI7QUFFRDtJQUNJLG9CQUFvQjtJQUNwQixpQkFBaUI7SUFDakIsbUJBQW1CO0NBQ3RCO0FBRUQ7SUFDSSxhQUFhO0lBQ2Isa0JBQWtCO0NBQ3JCO0FBR0QsaUJBQWlCO0FBQ2pCO0lBQ0ksV0FBVztJQUNYLG9CQUFvQjtJQUNwQiw0Q0FBNEM7SUFDNUMsMkJBQTJCO0lBQzNCLGlCQUFpQjtDQUNwQjtBQUVEO0lBQ0ksc0NBQXNDO0lBQ3RDLDBCQUEwQjtJQUMxQixlQUFlO0lBQ2YsWUFBWTtDQUNmO0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsd0JBQXdCO0lBQ3hCLHNCQUFzQjtDQUN6QjtBQUVEO0lBQ0ksb0JBQW9CO0NBQ3ZCO0FBRUQ7SUFDSSxvQkFBb0I7SUFDcEIsd0JBQXdCO0lBQ3hCLGlCQUFpQjtJQUNqQixzQ0FBc0M7SUFDdEMsNEJBQTRCO0NBQy9CO0FBRUQ7SUFDSSw0QkFBNEI7Q0FDL0I7QUFFRDtJQUNJLFlBQVk7SUFDWixvQkFBb0I7SUFDcEIsa0JBQWtCO0NBQ3JCO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0Isa0JBQWtCO0NBQ3JCO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0IsZ0JBQWdCO0lBQ2hCLG9CQUFvQjtDQUN2QjtBQUdEO0lBQ0ksb0JBQW9CO0lBQ3BCLGdCQUFnQjtJQUNoQixpQkFBaUI7Q0FDcEI7QUFFRDtJQUNJLG9CQUFvQjtJQUNwQixvQkFBb0I7Q0FDdkI7QUFFRDtJQUNJLDJCQUEyQjtDQUM5QjtBQUVEO0lBQ0ksb0JBQW9CO0lBQ3BCLGdCQUFnQjtDQUNuQjtBQUVEO0lBQ0ksZUFBZTtDQUNsQjtBQUVELDJCQUEyQjtBQUMzQjtJQUNJLGlCQUFpQjtDQUNwQjtBQUVEO0lBQ0ksY0FBYztDQUNqQjtBQUVEO0lBQ0ksV0FBVztDQUNkO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0IsZ0JBQWdCO0lBQ2hCLDBCQUEwQjtJQUMxQixvQkFBb0I7SUFDcEIsaUJBQWlCO0NBQ3BCO0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsYUFBYTtJQUNiLFVBQVU7Q0FDYjtBQUVEO0lBQ0ksZUFBZTtJQUNmLGVBQWU7SUFDZixzQkFBc0I7SUFDdEIsZ0JBQWdCO0NBQ25CIiwiZmlsZSI6ImFwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIENTUyBEb2N1bWVudCAqL1xyXG5AaW1wb3J0IHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PUxhdG86NDAwLDcwMCcpO1xyXG5cclxuYm9keSB7XHJcbiAgICBmb250LWZhbWlseTogJ0xhdG8nLCBzYW5zLXNlcmlmO1xyXG4gICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgYmFja2dyb3VuZDogI0Y4RkFGQjtcclxuICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbn1cclxuXHJcbmgxLmgyLFxyXG5oMyxcclxuaDQsXHJcbmg1LFxyXG5oNiB7XHJcbiAgICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbi5yZWxhdGl2ZSB7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbn1cclxuXHJcbi5idG4tcHJpbWFyeSB7XHJcbiAgICBjb2xvcjogI2ZmZjtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICM0RDdDRkU7XHJcbiAgICBib3JkZXItY29sb3I6ICM0RDdDRkU7XHJcbn1cclxuXHJcbi5idG4tcHJpbWFyeS5ob3ZlcixcclxuLmJ0bi1wcmltYXJ5OmhvdmVyLFxyXG4uYnRuLXByaW1hcnkuZm9jdXMsXHJcbi5idG4tcHJpbWFyeTpmb2N1cyxcclxuLmJ0bi1wcmltYXJ5LmFjdGl2ZSxcclxuLmJ0bi1wcmltYXJ5OmFjdGl2ZSB7XHJcbiAgICBjb2xvcjogI2ZmZjtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICMzMjVlZGE7XHJcbiAgICBib3JkZXItY29sb3I6ICMzMjVlZGE7XHJcbn1cclxuXHJcblxyXG4ucHJpbUNvbG9yIHtcclxuICAgIGNvbG9yOiAjNEQ3Q0ZFO1xyXG59XHJcblxyXG4uY2FsZW5kYXItd3JhcGVyIHtcclxuICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbn1cclxuXHJcbi5jYWxlbmRhci1oZWFkZXIge1xyXG4gICAgcGFkZGluZzogMTVweCAyNXB4O1xyXG4gICAgYm9yZGVyLWJvdHRvbTogc29saWQgMXB4IHJnYmEoMCwgMCwgMCwgMC4wNSk7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGJhY2tncm91bmQ6ICNmZmZmZmY7XHJcbn1cclxuXHJcbi5jYWwtbWFpbl90aXRsZSB7XHJcbiAgICBjb2xvcjogIzREN0NGRTtcclxuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XHJcbiAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICBmb250LXdlaWdodDogNzAwO1xyXG59XHJcblxyXG4uY2FsLXdlZWtfc29ydCB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDV2dztcclxufVxyXG5cclxuLmNhbC13ZWVrX3NvcnQgaSB7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41NCk7XHJcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICBmb250LXNpemU6IDE2cHg7XHJcbn1cclxuXHJcbi5jYWwtd2Vla19zb3J0IC5jYWwtbW9udGhfdGl0bGUge1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41NCk7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICBmb250LXdlaWdodDogNzAwO1xyXG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxuICAgIG1hcmdpbi1sZWZ0OiAycmVtO1xyXG59XHJcblxyXG4uY2FsbmVkYXJfb2ZmaWNlcy1saXN0IHtcclxuICAgIHBhZGRpbmc6IDI1cHg7XHJcbn1cclxuXHJcbi8qRm9ybSBhbmQgQnV0dG9uIFN0eWxlcyovXHJcbi5idG4ge1xyXG4gICAgYm9yZGVyLXJhZGl1czogMnB4O1xyXG59XHJcblxyXG4uZm9ybS1jb250cm9sIHtcclxuICAgIGJhY2tncm91bmQ6ICNmZmZmZmY7XHJcbiAgICBib3gtc2hhZG93OiBub25lO1xyXG4gICAgYm9yZGVyLXJhZGl1czogMnB4O1xyXG59XHJcblxyXG4uY2FsbmVkYXJfb2ZmaWNlcy1saXN0IC5mb3JtLWNvbnRyb2wge1xyXG4gICAgd2lkdGg6IDIwMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDI1cHg7XHJcbn1cclxuXHJcblxyXG4vKkNhbGVuZGFyIEJvZHkqL1xyXG4uY2FsZW5kYXItYm9keSB7XHJcbiAgICBwYWRkaW5nOiAwO1xyXG4gICAgYmFja2dyb3VuZDogI2ZmZmZmZjtcclxuICAgIGJveC1zaGFkb3c6IDFweCAxcHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xNSk7XHJcbiAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSA2NXB4KTtcclxuICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbn1cclxuXHJcbi5jYWxlbmRhci13cmFwZXIge1xyXG4gICAgYm9yZGVyOiBzb2xpZCAxcHggcmdiYSgwLCAwLCAwLCAwLjA1KTtcclxuICAgIGJvcmRlci1jb2xsYXBzZTogY29sbGFwc2U7XHJcbiAgICBkaXNwbGF5OiB0YWJsZTtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4uY2FsZW5kYXItcm93IHtcclxuICAgIGRpc3BsYXk6IHRhYmxlLXJvdztcclxuICAgIHZlcnRpY2FsLWFsaWduOiBpbmhlcml0O1xyXG4gICAgYm9yZGVyLWNvbG9yOiBpbmhlcml0O1xyXG59XHJcblxyXG4uY2FsZW5kYXItcm93Omxhc3QtY2hpbGQgLmNhbGVuZGFyLWNvbCB7XHJcbiAgICBib3JkZXItYm90dG9tOiBub25lO1xyXG59XHJcblxyXG4uY2FsZW5kYXItY29sIHtcclxuICAgIGRpc3BsYXk6IHRhYmxlLWNlbGw7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjogaW5oZXJpdDtcclxuICAgIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCByZ2JhKDAsIDAsIDAsIDAuMDUpO1xyXG4gICAgcGFkZGluZzogNnB4IDEwcHggMTVweCAxMHB4O1xyXG59XHJcblxyXG4ucm93LWhlYWRlciAuY2FsZW5kYXItY29sIHtcclxuICAgIHBhZGRpbmc6IDZweCAxMHB4IDI1cHggMTBweDtcclxufVxyXG5cclxuLmZpcnN0LWNhbGVuZGFyLWNvbCB7XHJcbiAgICB3aWR0aDogNzVweDtcclxuICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7XHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxufVxyXG5cclxuLnJvdy1oZWFkZXIgLmNhbGVuZGFyLWNvbCBzcGFuIHtcclxuICAgIGNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNTQpO1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbn1cclxuXHJcbi5yb3ctaGVhZGVyIC5jYWxlbmRhci1jb2wgaDQge1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC44Nyk7XHJcbiAgICBmb250LXNpemU6IDQycHg7XHJcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xyXG59XHJcblxyXG5cclxuLnJvdy1ib2R5IC5jYWxlbmRhci1jb2wgc3BhbiB7XHJcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xyXG4gICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgZm9udC13ZWlnaHQ6IDcwMDtcclxufVxyXG5cclxuLnJvdy1ib2R5IC5jYWxlbmRhci1jb2wudGFrZW4ge1xyXG4gICAgYmFja2dyb3VuZDogI0YzRjNGMztcclxuICAgIGN1cnNvcjogbm90LWFsbG93ZWQ7XHJcbn1cclxuXHJcbi5yb3ctYm9keSAuY2FsZW5kYXItY29sLnRha2VuIHNwYW4ge1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41NCk7XHJcbn1cclxuXHJcbi5yb3ctYm9keSAuY2FsZW5kYXItY29sLmF2YWlsYWJsZSB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjNUNCMTdFO1xyXG4gICAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4ucm93LWJvZHkgLmNhbGVuZGFyLWNvbC5hdmFpbGFibGUgc3BhbiB7XHJcbiAgICBjb2xvcjogI2ZmZmZmZjtcclxufVxyXG5cclxuLypNb2RhbCBQb3B1cCBGb3JtIFN0eWxlcyovXHJcbi5tb2RhbC1jb250ZW50IHtcclxuICAgIGJvcmRlci1yYWRpdXM6IDA7XHJcbn1cclxuXHJcbi5tb2RhbC1ib2R5IHtcclxuICAgIHBhZGRpbmc6IDI1cHg7XHJcbn1cclxuXHJcbi5tb2RhbC1ib2R5IC5mb3JtIHtcclxuICAgIHdpZHRoOiA5MCU7XHJcbn1cclxuXHJcbi5tb2RhbC1ib2R5IC5mb3JtIGg0IHtcclxuICAgIGNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNTQpO1xyXG4gICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcclxuICAgIG1hcmdpbi1ib3R0b206IDMwcHg7XHJcbiAgICBmb250LXdlaWdodDogNzAwO1xyXG59XHJcblxyXG4uYnRuX2FkZC1yb3cge1xyXG4gICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgcmlnaHQ6IC01MHB4O1xyXG4gICAgdG9wOiAzMHB4O1xyXG59XHJcblxyXG4uYnRuX2FkZC1yb3cgYSB7XHJcbiAgICBjb2xvcjogIzREN0NGRTtcclxuICAgIHBhZGRpbmc6IDAgNXB4O1xyXG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgZm9udC1zaXplOiAxNnB4O1xyXG59Il19 */"
+module.exports = "\r\n@import url('https://fonts.googleapis.com/css?family=Lato:400,700');\n/* CSS Document */\nbody {\r\n    font-family: 'Lato', sans-serif;\r\n    font-size: 14px;\r\n    background: #F8FAFB;\r\n    overflow: hidden;\r\n}\nh1.h2,\r\nh3,\r\nh4,\r\nh5,\r\nh6 {\r\n    margin: 0;\r\n}\n.relative {\r\n    position: relative;\r\n}\n.btn-primary {\r\n    color: #fff;\r\n    background-color: #4D7CFE;\r\n    border-color: #4D7CFE;\r\n}\n.btn-primary.hover,\r\n.btn-primary:hover,\r\n.btn-primary.focus,\r\n.btn-primary:focus,\r\n.btn-primary.active,\r\n.btn-primary:active {\r\n    color: #fff;\r\n    background-color: #325eda;\r\n    border-color: #325eda;\r\n}\n.primColor {\r\n    color: #4D7CFE;\r\n}\n.calendar-wraper {\r\n    overflow: hidden;\r\n}\n.calendar-header {\r\n    padding: 15px 25px;\r\n    border-bottom: solid 1px rgba(0, 0, 0, 0.05);\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    background: #ffffff;\r\n}\n.cal-main_title {\r\n    color: #4D7CFE;\r\n    text-transform: uppercase;\r\n    font-size: 20px;\r\n    font-weight: 700;\r\n}\n.cal-week_sort {\r\n    margin-right: 5vw;\r\n}\n.cal-week_sort i {\r\n    vertical-align: middle;\r\n    color: rgba(0, 0, 0, 0.54);\r\n    display: inline-block;\r\n    padding: 0 10px;\r\n    cursor: pointer;\r\n    font-size: 16px;\r\n}\n.cal-week_sort .cal-month_title {\r\n    color: rgba(0, 0, 0, 0.54);\r\n    text-align: center;\r\n    font-size: 20px;\r\n    font-weight: 700;\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    margin-left: 2rem;\r\n}\n.calnedar_offices-list {\r\n    padding: 25px;\r\n}\n/*Form and Button Styles*/\n.btn {\r\n    border-radius: 2px;\r\n}\n.form-control {\r\n    background: #ffffff;\r\n    box-shadow: none;\r\n    border-radius: 2px;\r\n}\n.calnedar_offices-list .form-control {\r\n    width: 200px;\r\n    margin-left: 25px;\r\n}\n/*Calendar Body*/\n.calendar-body {\r\n    padding: 0;\r\n    background: #ffffff;\r\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);\r\n    height: calc(100vh - 150px);\r\n    overflow: hidden;\r\n}\n.calendar-wraper {\r\n    border: solid 1px rgba(0, 0, 0, 0.05);\r\n    border-collapse: collapse;\r\n    display: table;\r\n    width: 100%;\r\n}\n.calendar-row {\r\n    display: table-row;\r\n    vertical-align: inherit;\r\n    border-color: inherit;\r\n}\n.calendar-row:last-child .calendar-col {\r\n    border-bottom: none;\r\n}\n.calendar-col {\r\n    display: table-cell;\r\n    vertical-align: inherit;\r\n    text-align: left;\r\n    border: solid 1px rgba(0, 0, 0, 0.05);\r\n    padding: 6px 10px 15px 10px;\r\n}\n.row-header .calendar-col {\r\n    padding: 6px 10px 25px 10px;\r\n}\n.first-calendar-col {\r\n    width: 75px;\r\n    font-weight: normal;\r\n    text-align: right;\r\n}\n.row-header .calendar-col span {\r\n    color: rgba(0, 0, 0, 0.54);\r\n    font-weight: bold;\r\n}\n.row-header .calendar-col h4 {\r\n    color: rgba(0, 0, 0, 0.87);\r\n    font-size: 42px;\r\n    font-weight: normal;\r\n}\n.row-body .calendar-col span {\r\n    font-weight: normal;\r\n    font-size: 14px;\r\n    font-weight: 700;\r\n}\n.row-body .calendar-col.taken {\r\n    background: #F3F3F3;\r\n    cursor: not-allowed;\r\n}\n.row-body .calendar-col.taken span {\r\n    color: rgba(0, 0, 0, 0.54);\r\n}\n.row-body .calendar-col.available {\r\n    background: #5CB17E;\r\n    cursor: pointer;\r\n}\n.row-body .calendar-col.available span {\r\n    color: #ffffff;\r\n}\n/*Modal Popup Form Styles*/\n.modal-content {\r\n    border-radius: 0;\r\n}\n.modal-body {\r\n    padding: 25px;\r\n}\n.modal-body .form {\r\n    width: 90%;\r\n}\n.modal-body .form h4 {\r\n    color: rgba(0, 0, 0, 0.54);\r\n    font-size: 14px;\r\n    text-transform: uppercase;\r\n    margin-bottom: 30px;\r\n    font-weight: 700;\r\n}\n.btn_add-row {\r\n    position: absolute;\r\n    right: -50px;\r\n    top: 30px;\r\n}\n.btn_add-row a {\r\n    color: #4D7CFE;\r\n    padding: 0 5px;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9hcHAuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0Esb0VBQW9FO0FBRHBFLGtCQUFrQjtBQUdsQjtJQUNJLGdDQUFnQztJQUNoQyxnQkFBZ0I7SUFDaEIsb0JBQW9CO0lBQ3BCLGlCQUFpQjtDQUNwQjtBQUVEOzs7OztJQUtJLFVBQVU7Q0FDYjtBQUVEO0lBQ0ksbUJBQW1CO0NBQ3RCO0FBRUQ7SUFDSSxZQUFZO0lBQ1osMEJBQTBCO0lBQzFCLHNCQUFzQjtDQUN6QjtBQUVEOzs7Ozs7SUFNSSxZQUFZO0lBQ1osMEJBQTBCO0lBQzFCLHNCQUFzQjtDQUN6QjtBQUdEO0lBQ0ksZUFBZTtDQUNsQjtBQUVEO0lBQ0ksaUJBQWlCO0NBQ3BCO0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsNkNBQTZDO0lBQzdDLGNBQWM7SUFDZCwrQkFBK0I7SUFDL0Isb0JBQW9CO0lBQ3BCLG9CQUFvQjtDQUN2QjtBQUVEO0lBQ0ksZUFBZTtJQUNmLDBCQUEwQjtJQUMxQixnQkFBZ0I7SUFDaEIsaUJBQWlCO0NBQ3BCO0FBRUQ7SUFDSSxrQkFBa0I7Q0FDckI7QUFFRDtJQUNJLHVCQUF1QjtJQUN2QiwyQkFBMkI7SUFDM0Isc0JBQXNCO0lBQ3RCLGdCQUFnQjtJQUNoQixnQkFBZ0I7SUFDaEIsZ0JBQWdCO0NBQ25CO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0IsbUJBQW1CO0lBQ25CLGdCQUFnQjtJQUNoQixpQkFBaUI7SUFDakIsc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixrQkFBa0I7Q0FDckI7QUFFRDtJQUNJLGNBQWM7Q0FDakI7QUFFRCwwQkFBMEI7QUFDMUI7SUFDSSxtQkFBbUI7Q0FDdEI7QUFFRDtJQUNJLG9CQUFvQjtJQUNwQixpQkFBaUI7SUFDakIsbUJBQW1CO0NBQ3RCO0FBRUQ7SUFDSSxhQUFhO0lBQ2Isa0JBQWtCO0NBQ3JCO0FBR0QsaUJBQWlCO0FBQ2pCO0lBQ0ksV0FBVztJQUNYLG9CQUFvQjtJQUNwQiw0Q0FBNEM7SUFDNUMsNEJBQTRCO0lBQzVCLGlCQUFpQjtDQUNwQjtBQUVEO0lBQ0ksc0NBQXNDO0lBQ3RDLDBCQUEwQjtJQUMxQixlQUFlO0lBQ2YsWUFBWTtDQUNmO0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsd0JBQXdCO0lBQ3hCLHNCQUFzQjtDQUN6QjtBQUVEO0lBQ0ksb0JBQW9CO0NBQ3ZCO0FBRUQ7SUFDSSxvQkFBb0I7SUFDcEIsd0JBQXdCO0lBQ3hCLGlCQUFpQjtJQUNqQixzQ0FBc0M7SUFDdEMsNEJBQTRCO0NBQy9CO0FBRUQ7SUFDSSw0QkFBNEI7Q0FDL0I7QUFFRDtJQUNJLFlBQVk7SUFDWixvQkFBb0I7SUFDcEIsa0JBQWtCO0NBQ3JCO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0Isa0JBQWtCO0NBQ3JCO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0IsZ0JBQWdCO0lBQ2hCLG9CQUFvQjtDQUN2QjtBQUdEO0lBQ0ksb0JBQW9CO0lBQ3BCLGdCQUFnQjtJQUNoQixpQkFBaUI7Q0FDcEI7QUFFRDtJQUNJLG9CQUFvQjtJQUNwQixvQkFBb0I7Q0FDdkI7QUFFRDtJQUNJLDJCQUEyQjtDQUM5QjtBQUVEO0lBQ0ksb0JBQW9CO0lBQ3BCLGdCQUFnQjtDQUNuQjtBQUVEO0lBQ0ksZUFBZTtDQUNsQjtBQUVELDJCQUEyQjtBQUMzQjtJQUNJLGlCQUFpQjtDQUNwQjtBQUVEO0lBQ0ksY0FBYztDQUNqQjtBQUVEO0lBQ0ksV0FBVztDQUNkO0FBRUQ7SUFDSSwyQkFBMkI7SUFDM0IsZ0JBQWdCO0lBQ2hCLDBCQUEwQjtJQUMxQixvQkFBb0I7SUFDcEIsaUJBQWlCO0NBQ3BCO0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsYUFBYTtJQUNiLFVBQVU7Q0FDYjtBQUVEO0lBQ0ksZUFBZTtJQUNmLGVBQWU7SUFDZixzQkFBc0I7SUFDdEIsZ0JBQWdCO0NBQ25CIiwiZmlsZSI6ImFwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIENTUyBEb2N1bWVudCAqL1xyXG5AaW1wb3J0IHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PUxhdG86NDAwLDcwMCcpO1xyXG5cclxuYm9keSB7XHJcbiAgICBmb250LWZhbWlseTogJ0xhdG8nLCBzYW5zLXNlcmlmO1xyXG4gICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgYmFja2dyb3VuZDogI0Y4RkFGQjtcclxuICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbn1cclxuXHJcbmgxLmgyLFxyXG5oMyxcclxuaDQsXHJcbmg1LFxyXG5oNiB7XHJcbiAgICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbi5yZWxhdGl2ZSB7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbn1cclxuXHJcbi5idG4tcHJpbWFyeSB7XHJcbiAgICBjb2xvcjogI2ZmZjtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICM0RDdDRkU7XHJcbiAgICBib3JkZXItY29sb3I6ICM0RDdDRkU7XHJcbn1cclxuXHJcbi5idG4tcHJpbWFyeS5ob3ZlcixcclxuLmJ0bi1wcmltYXJ5OmhvdmVyLFxyXG4uYnRuLXByaW1hcnkuZm9jdXMsXHJcbi5idG4tcHJpbWFyeTpmb2N1cyxcclxuLmJ0bi1wcmltYXJ5LmFjdGl2ZSxcclxuLmJ0bi1wcmltYXJ5OmFjdGl2ZSB7XHJcbiAgICBjb2xvcjogI2ZmZjtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICMzMjVlZGE7XHJcbiAgICBib3JkZXItY29sb3I6ICMzMjVlZGE7XHJcbn1cclxuXHJcblxyXG4ucHJpbUNvbG9yIHtcclxuICAgIGNvbG9yOiAjNEQ3Q0ZFO1xyXG59XHJcblxyXG4uY2FsZW5kYXItd3JhcGVyIHtcclxuICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbn1cclxuXHJcbi5jYWxlbmRhci1oZWFkZXIge1xyXG4gICAgcGFkZGluZzogMTVweCAyNXB4O1xyXG4gICAgYm9yZGVyLWJvdHRvbTogc29saWQgMXB4IHJnYmEoMCwgMCwgMCwgMC4wNSk7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGJhY2tncm91bmQ6ICNmZmZmZmY7XHJcbn1cclxuXHJcbi5jYWwtbWFpbl90aXRsZSB7XHJcbiAgICBjb2xvcjogIzREN0NGRTtcclxuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XHJcbiAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICBmb250LXdlaWdodDogNzAwO1xyXG59XHJcblxyXG4uY2FsLXdlZWtfc29ydCB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDV2dztcclxufVxyXG5cclxuLmNhbC13ZWVrX3NvcnQgaSB7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41NCk7XHJcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICBmb250LXNpemU6IDE2cHg7XHJcbn1cclxuXHJcbi5jYWwtd2Vla19zb3J0IC5jYWwtbW9udGhfdGl0bGUge1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41NCk7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICBmb250LXdlaWdodDogNzAwO1xyXG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxuICAgIG1hcmdpbi1sZWZ0OiAycmVtO1xyXG59XHJcblxyXG4uY2FsbmVkYXJfb2ZmaWNlcy1saXN0IHtcclxuICAgIHBhZGRpbmc6IDI1cHg7XHJcbn1cclxuXHJcbi8qRm9ybSBhbmQgQnV0dG9uIFN0eWxlcyovXHJcbi5idG4ge1xyXG4gICAgYm9yZGVyLXJhZGl1czogMnB4O1xyXG59XHJcblxyXG4uZm9ybS1jb250cm9sIHtcclxuICAgIGJhY2tncm91bmQ6ICNmZmZmZmY7XHJcbiAgICBib3gtc2hhZG93OiBub25lO1xyXG4gICAgYm9yZGVyLXJhZGl1czogMnB4O1xyXG59XHJcblxyXG4uY2FsbmVkYXJfb2ZmaWNlcy1saXN0IC5mb3JtLWNvbnRyb2wge1xyXG4gICAgd2lkdGg6IDIwMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDI1cHg7XHJcbn1cclxuXHJcblxyXG4vKkNhbGVuZGFyIEJvZHkqL1xyXG4uY2FsZW5kYXItYm9keSB7XHJcbiAgICBwYWRkaW5nOiAwO1xyXG4gICAgYmFja2dyb3VuZDogI2ZmZmZmZjtcclxuICAgIGJveC1zaGFkb3c6IDFweCAxcHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xNSk7XHJcbiAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSAxNTBweCk7XHJcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG59XHJcblxyXG4uY2FsZW5kYXItd3JhcGVyIHtcclxuICAgIGJvcmRlcjogc29saWQgMXB4IHJnYmEoMCwgMCwgMCwgMC4wNSk7XHJcbiAgICBib3JkZXItY29sbGFwc2U6IGNvbGxhcHNlO1xyXG4gICAgZGlzcGxheTogdGFibGU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLmNhbGVuZGFyLXJvdyB7XHJcbiAgICBkaXNwbGF5OiB0YWJsZS1yb3c7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjogaW5oZXJpdDtcclxuICAgIGJvcmRlci1jb2xvcjogaW5oZXJpdDtcclxufVxyXG5cclxuLmNhbGVuZGFyLXJvdzpsYXN0LWNoaWxkIC5jYWxlbmRhci1jb2wge1xyXG4gICAgYm9yZGVyLWJvdHRvbTogbm9uZTtcclxufVxyXG5cclxuLmNhbGVuZGFyLWNvbCB7XHJcbiAgICBkaXNwbGF5OiB0YWJsZS1jZWxsO1xyXG4gICAgdmVydGljYWwtYWxpZ246IGluaGVyaXQ7XHJcbiAgICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gICAgYm9yZGVyOiBzb2xpZCAxcHggcmdiYSgwLCAwLCAwLCAwLjA1KTtcclxuICAgIHBhZGRpbmc6IDZweCAxMHB4IDE1cHggMTBweDtcclxufVxyXG5cclxuLnJvdy1oZWFkZXIgLmNhbGVuZGFyLWNvbCB7XHJcbiAgICBwYWRkaW5nOiA2cHggMTBweCAyNXB4IDEwcHg7XHJcbn1cclxuXHJcbi5maXJzdC1jYWxlbmRhci1jb2wge1xyXG4gICAgd2lkdGg6IDc1cHg7XHJcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xyXG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbn1cclxuXHJcbi5yb3ctaGVhZGVyIC5jYWxlbmRhci1jb2wgc3BhbiB7XHJcbiAgICBjb2xvcjogcmdiYSgwLCAwLCAwLCAwLjU0KTtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcblxyXG4ucm93LWhlYWRlciAuY2FsZW5kYXItY29sIGg0IHtcclxuICAgIGNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuODcpO1xyXG4gICAgZm9udC1zaXplOiA0MnB4O1xyXG4gICAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcclxufVxyXG5cclxuXHJcbi5yb3ctYm9keSAuY2FsZW5kYXItY29sIHNwYW4ge1xyXG4gICAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcclxuICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgIGZvbnQtd2VpZ2h0OiA3MDA7XHJcbn1cclxuXHJcbi5yb3ctYm9keSAuY2FsZW5kYXItY29sLnRha2VuIHtcclxuICAgIGJhY2tncm91bmQ6ICNGM0YzRjM7XHJcbiAgICBjdXJzb3I6IG5vdC1hbGxvd2VkO1xyXG59XHJcblxyXG4ucm93LWJvZHkgLmNhbGVuZGFyLWNvbC50YWtlbiBzcGFuIHtcclxuICAgIGNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNTQpO1xyXG59XHJcblxyXG4ucm93LWJvZHkgLmNhbGVuZGFyLWNvbC5hdmFpbGFibGUge1xyXG4gICAgYmFja2dyb3VuZDogIzVDQjE3RTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5cclxuLnJvdy1ib2R5IC5jYWxlbmRhci1jb2wuYXZhaWxhYmxlIHNwYW4ge1xyXG4gICAgY29sb3I6ICNmZmZmZmY7XHJcbn1cclxuXHJcbi8qTW9kYWwgUG9wdXAgRm9ybSBTdHlsZXMqL1xyXG4ubW9kYWwtY29udGVudCB7XHJcbiAgICBib3JkZXItcmFkaXVzOiAwO1xyXG59XHJcblxyXG4ubW9kYWwtYm9keSB7XHJcbiAgICBwYWRkaW5nOiAyNXB4O1xyXG59XHJcblxyXG4ubW9kYWwtYm9keSAuZm9ybSB7XHJcbiAgICB3aWR0aDogOTAlO1xyXG59XHJcblxyXG4ubW9kYWwtYm9keSAuZm9ybSBoNCB7XHJcbiAgICBjb2xvcjogcmdiYSgwLCAwLCAwLCAwLjU0KTtcclxuICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xyXG4gICAgZm9udC13ZWlnaHQ6IDcwMDtcclxufVxyXG5cclxuLmJ0bl9hZGQtcm93IHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHJpZ2h0OiAtNTBweDtcclxuICAgIHRvcDogMzBweDtcclxufVxyXG5cclxuLmJ0bl9hZGQtcm93IGEge1xyXG4gICAgY29sb3I6ICM0RDdDRkU7XHJcbiAgICBwYWRkaW5nOiAwIDVweDtcclxuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgIGZvbnQtc2l6ZTogMTZweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -169,7 +345,7 @@ module.exports = "\r\n@import url('https://fonts.googleapis.com/css?family=Lato:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"calendar-wraper\">\n  <div class=\"calendar-header\">\n    <h3 class=\"cal-main_title\"> Appointments System </h3>\n    <div class=\"cal-week_sort\"> <i class=\"fa fa-chevron-left\" (click)=\"changeWeek(1)\"></i> <i class=\"fa fa-chevron-right\"\n        (click)=\"changeWeek(2)\"></i>\n      <h3 class=\"cal-month_title\"> {{week | date: 'MMM yyyy'}} </h3>\n    </div>\n    <div class=\"btn-group\" role=\"group\" aria-label=\"...\">\n      <button type=\"button\" class=\"btn btn-default\"> Today </button>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"calnedar_offices-list\">\n        <div class=\"form-inline\">\n          <label class=\"control-label\"> List Offices: </label>\n          <select class=\"form-control\" [(ngModel)]=\"officeLocation\" (change)=\"onOfficeLocationChanged()\">\n            <option>Select</option>\n            <option *ngFor=\"let location of officeLocations\" value=\"{{location.officeLocationId}}\"> {{location.name}}\n            </option>\n          </select>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"calendar-body\">\n    <div class=\"calendar-wraper\">\n      <!-- Header -->\n      <div class=\"calendar-row row-header\">\n\n        <div *ngFor=\"let day of daysOfWeek\" class=\"calendar-col\">\n          <span> {{day.name}} </span>\n          <h4> {{day.date | date:'dd'}} </h4>\n        </div>\n      </div>\n\n      <!-- Body -->\n      <div *ngFor=\"let timeSlot of timeSlots\" class=\"calendar-row row-body\">\n        <div *ngFor=\"let roaster of timeSlot.roasters\" class=\"calendar-col\" [ngClass]=\"{available: roaster.available, taken: !roaster.available}\"\n          [attr.data-toggle]=\"roaster.available ? 'modal':null\" [attr.data-target]=\"roaster.available ? '#myModal' : null\">\n          <span> {{timeSlot.timeSlot}} </span>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n\n\n<!-- Modal -->\n<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n  <schedule-form></schedule-form>\n</div>"
+module.exports = "<ngx-toasta></ngx-toasta>\n<div class=\"calendar-wraper\">\n  <div class=\"calendar-header\">\n    <h3 class=\"cal-main_title\"> Appointments System </h3>\n    <div class=\"cal-week_sort\"> <i class=\"fa fa-chevron-left\" (click)=\"changeWeek(1)\"></i> <i class=\"fa fa-chevron-right\"\n        (click)=\"changeWeek(2)\"></i>\n      <h3 class=\"cal-month_title\"> {{week | date: 'MMM yyyy'}} </h3>\n    </div>\n    <div style=\"visibility: hidden;\" class=\"btn-group\" role=\"group\" aria-label=\"...\">\n      <button type=\"button\" class=\"btn btn-default\"> Today </button>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"calnedar_offices-list\">\n        <div class=\"form-inline\">\n          <label class=\"control-label\"> List Offices: </label>\n          <select class=\"form-control\" [(ngModel)]=\"officeLocation\" (change)=\"onOfficeLocationChanged()\">\n            <option>Select</option>\n            <option *ngFor=\"let location of officeLocations\" value=\"{{location.officeLocationId}}\"> {{location.name}}\n            </option>\n          </select>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"calendar-body\">\n    <div class=\"calendar-wraper\">\n      <!-- Header -->\n      <div class=\"calendar-row row-header\">\n\n        <div *ngFor=\"let day of daysOfWeek\" class=\"calendar-col\">\n          <span> {{day.name}} </span>\n          <h4> {{day.date | date:'dd'}} </h4>\n        </div>\n      </div>\n\n      <!-- Body -->\n      <div *ngFor=\"let timeSlot of timeSlots\" class=\"calendar-row row-body\">\n        <div *ngFor=\"let roaster of timeSlot.roasters\" class=\"calendar-col\" [ngClass]=\"{available: roaster.available, taken: !roaster.available}\"\n          [attr.data-toggle]=\"roaster.available ? 'modal':null\" [attr.data-target]=\"roaster.available ? '#myModal' : null\"\n          (click)=\"sendTimeSlot(timeSlot, roaster.date)\">\n          <span> {{timeSlot.timeSlot}} </span>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n\n\n<!-- Modal -->\n<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n  <schedule-form (refreshCalendar)=\"refreshCalendar($event)\" [officeLocationId]=\"officeLocation\" [timeSlot]=\"selectedTimeSlot\"\n    [rosterDate]=\"rosterDate\"></schedule-form>\n</div>"
 
 /***/ }),
 
@@ -229,6 +405,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.onOfficeLocationChanged = function () {
         this.daysOfWeek = [];
         this.timeSlots = [];
+        this.isSubscriptionComplete = false;
         this.getAllWeeksRoasters(this.week, this.officeLocation);
     };
     AppComponent.prototype.changeWeek = function (changeSwitch) {
@@ -237,10 +414,10 @@ var AppComponent = /** @class */ (function () {
             : (this.week = date_fns_add_days__WEBPACK_IMPORTED_MODULE_6__(this.week, 7));
         this.daysOfWeek = [];
         this.timeSlots = [];
+        this.isSubscriptionComplete = false;
         this.getAllWeeksRoasters(this.week, this.officeLocation);
     };
     AppComponent.prototype.getAllWeeksRoasters = function (date, officeLocation) {
-        var _this = this;
         var monday = Object(_common_common__WEBPACK_IMPORTED_MODULE_4__["getWeekMondayByDate"])(date);
         var sunday = date_fns_add_days__WEBPACK_IMPORTED_MODULE_6__(monday, 6);
         var dayOfWeek;
@@ -261,9 +438,16 @@ var AppComponent = /** @class */ (function () {
                 self.isSubscriptionComplete = true;
             });
         });
+        this.setTimeSlotsAfterSubscriptionComplete();
+    };
+    AppComponent.prototype.setTimeSlotsAfterSubscriptionComplete = function () {
+        var _this = this;
         setTimeout(function () {
             if (_this.isSubscriptionComplete) {
                 _this.setTimeSlots();
+            }
+            else {
+                _this.setTimeSlotsAfterSubscriptionComplete();
             }
         }, 1000);
     };
@@ -276,17 +460,17 @@ var AppComponent = /** @class */ (function () {
         this.setTimeSlots();
     };
     AppComponent.prototype.setRosters = function (actualRoasters, date) {
-        var available = true;
+        var available = false;
         var finalizedRosters = [];
-        for (var index = 1; index < 25; index++) {
+        for (var index = 1; index < 13; index++) {
             for (var j = 0; j < actualRoasters.length; j++) {
                 var roaster_1 = actualRoasters[j];
                 if (roaster_1.timeSlot == index) {
-                    available = false;
+                    available = true;
                     break;
                 }
                 else
-                    available = true;
+                    available = false;
             }
             var roaster = new _models_roaster__WEBPACK_IMPORTED_MODULE_3__["Roaster"](date, index, "JN#" + index, available);
             finalizedRosters.push(roaster);
@@ -315,9 +499,18 @@ var AppComponent = /** @class */ (function () {
             this_1.timeSlots.push(timeSlot);
         };
         var this_1 = this;
-        for (var index = 1; index < 25; index++) {
+        for (var index = 1; index < 13; index++) {
             _loop_1(index);
         }
+    };
+    AppComponent.prototype.refreshCalendar = function () {
+        this.daysOfWeek = [];
+        this.timeSlots = [];
+        this.getAllWeeksRoasters(this.week, this.officeLocation);
+    };
+    AppComponent.prototype.sendTimeSlot = function (ts, date) {
+        this.selectedTimeSlot = ts;
+        this.rosterDate = date;
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -353,6 +546,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-select/ng-select */ "./node_modules/@ng-select/ng-select/fesm5/ng-select.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _add_schedule_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./add-schedule.component */ "./src/app/add-schedule.component.ts");
+/* harmony import */ var _directives_number_only_directive__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../directives/number-only.directive */ "./src/directives/number-only.directive.ts");
+/* harmony import */ var ngx_toasta__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-toasta */ "./node_modules/ngx-toasta/fesm5/ngx-toasta.js");
+/* harmony import */ var _common_storage_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../common/storage.service */ "./src/common/storage.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -368,21 +564,25 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _add_schedule_component__WEBPACK_IMPORTED_MODULE_8__["AddScheduleComponent"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _add_schedule_component__WEBPACK_IMPORTED_MODULE_8__["AddScheduleComponent"], _directives_number_only_directive__WEBPACK_IMPORTED_MODULE_9__["NumberOnlyDirective"]],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 ngx_date_fns__WEBPACK_IMPORTED_MODULE_3__["DateFnsModule"].forRoot(),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
                 _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_6__["NgSelectModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"]
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
+                ngx_toasta__WEBPACK_IMPORTED_MODULE_10__["ToastaModule"].forRoot()
             ],
-            providers: [_services_roaster_service__WEBPACK_IMPORTED_MODULE_0__["RoasterService"]],
+            providers: [_services_roaster_service__WEBPACK_IMPORTED_MODULE_0__["RoasterService"], _common_storage_service__WEBPACK_IMPORTED_MODULE_11__["StorageService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
@@ -397,7 +597,7 @@ var AppModule = /** @class */ (function () {
 /*!******************************!*\
   !*** ./src/common/common.ts ***!
   \******************************/
-/*! exports provided: getWeekMondayByDate, WEEK_DAYS, forEachDateInRange, groupBy, getTimeSlot, orderByDate, TIME_SLOTS, TIMES_ENUM, apiResponse */
+/*! exports provided: getWeekMondayByDate, WEEK_DAYS, forEachDateInRange, groupBy, getTimeSlot, orderByDate, getObjectAsGroupArray, getStartTime, ToastType, TIME_SLOTS, TIMES_ENUM, apiResponse */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -408,6 +608,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "groupBy", function() { return groupBy; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTimeSlot", function() { return getTimeSlot; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderByDate", function() { return orderByDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getObjectAsGroupArray", function() { return getObjectAsGroupArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStartTime", function() { return getStartTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastType", function() { return ToastType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TIME_SLOTS", function() { return TIME_SLOTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TIMES_ENUM", function() { return TIMES_ENUM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiResponse", function() { return apiResponse; });
@@ -447,57 +650,63 @@ function orderByDate(arr, dateProp) {
         return a[dateProp] < b[dateProp] ? -1 : 1;
     });
 }
+function getObjectAsGroupArray(f, keyStartValue) {
+    return Object.keys(f.value)
+        .filter(function (obj) {
+        return obj.startsWith(keyStartValue);
+    })
+        .map(function (key) {
+        return f.value[key];
+    });
+}
+function getStartTime(date, i) {
+    var stringTime = TIME_SLOTS[i];
+    var timeParts = stringTime.split(":");
+    var hoursPart = parseInt(timeParts[0]);
+    var minutesPart = parseInt(timeParts[1].replace("am", "").replace("pm", ""));
+    var hoursToAdd = 0;
+    if (hoursPart >= 8 && hoursPart <= 12) {
+        hoursToAdd = hoursPart;
+    }
+    else {
+        hoursToAdd += hoursPart + 12;
+    }
+    var setDate = date.setHours(hoursToAdd, minutesPart, 0, 0);
+    return new Date(setDate);
+}
+var ToastType;
+(function (ToastType) {
+    ToastType[ToastType["Error"] = 0] = "Error";
+    ToastType[ToastType["Warning"] = 1] = "Warning";
+    ToastType[ToastType["Success"] = 2] = "Success";
+})(ToastType || (ToastType = {}));
 var TIME_SLOTS = {
-    1: "08:00am",
-    2: "08:30am",
-    3: "09:00am",
-    4: "09:30am",
-    5: "10:00am",
-    6: "10:30am",
-    7: "11:00am",
-    8: "11:30am",
-    9: "12:00pm",
-    10: "12:30pm",
-    11: "01:00pm",
-    12: "01:30pm",
-    13: "02:00pm",
-    14: "02:30pm",
-    15: "03:00pm",
-    16: "03:30pm",
-    17: "04:00pm",
-    18: "04:30pm",
-    19: "05:00pm",
-    20: "05:30pm",
-    21: "06:00pm",
-    22: "06:30pm",
-    23: "07:00pm",
-    24: "07:30pm"
+    1: "08:30am",
+    2: "09:30am",
+    3: "10:30am",
+    4: "11:30am",
+    5: "12:30pm",
+    6: "01:30pm",
+    7: "02:30pm",
+    8: "03:30pm",
+    9: "04:30pm",
+    10: "05:30pm",
+    11: "06:30pm",
+    12: "07:30pm"
 };
 var TIMES_ENUM = {
-    "8:0": 1,
-    "8:30": 2,
-    "9:0": 3,
-    "9:30": 4,
-    "10:0": 5,
-    "10:30": 6,
-    "11:0": 7,
-    "11:30": 8,
-    "12:0": 9,
-    "12:30": 10,
-    "13:0": 11,
-    "13:30": 12,
-    "14:0": 13,
-    "14:30": 14,
-    "15:0": 15,
-    "15:30": 16,
-    "16:0": 17,
-    "16:30": 18,
-    "17:0": 19,
-    "17:30": 20,
-    "18:0": 21,
-    "18:30": 22,
-    "19:0": 23,
-    "19:30": 24
+    "8:30": 1,
+    "9:30": 2,
+    "10:30": 3,
+    "11:30": 4,
+    "12:30": 5,
+    "13:30": 6,
+    "14:30": 7,
+    "15:30": 8,
+    "16:30": 9,
+    "17:30": 10,
+    "18:30": 11,
+    "19:30": 12
 };
 var apiResponse = [
     {
@@ -522,6 +731,144 @@ var apiResponse = [
         ]
     }
 ];
+
+
+/***/ }),
+
+/***/ "./src/common/storage.service.ts":
+/*!***************************************!*\
+  !*** ./src/common/storage.service.ts ***!
+  \***************************************/
+/*! exports provided: StorageService, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StorageService", function() { return StorageService; });
+/* harmony import */ var memorystorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! memorystorage */ "./node_modules/memorystorage/dist/memorystorage.umd.js");
+/* harmony import */ var memorystorage__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(memorystorage__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var StorageService = /** @class */ (function () {
+    function StorageService() {
+        this.lsFallBack = null;
+        this.supported = this.validateLS();
+        if (!this.supported)
+            this.lsFallBack = new memorystorage__WEBPACK_IMPORTED_MODULE_0__["MemoryStorage"]("fallBack");
+    }
+    StorageService.prototype.get = function (lsName) {
+        if (this.supported) {
+            return sessionStorage.getItem(lsName);
+        }
+        return this.lsFallBack.getItem(lsName);
+    };
+    StorageService.prototype.set = function (lsName, lsValue) {
+        if (this.supported) {
+            sessionStorage.setItem(lsName, JSON.stringify(lsValue));
+            return;
+        }
+        this.lsFallBack.setItem(lsName, JSON.stringify(lsValue));
+    };
+    StorageService.prototype.del = function (lsName) {
+        if (this.supported) {
+            sessionStorage.removeItem(lsName);
+            return;
+        }
+        this.lsFallBack.removeItem(lsName);
+    };
+    StorageService.prototype.clear = function () {
+        if (this.supported) {
+            sessionStorage.clear();
+            return;
+        }
+        this.lsFallBack.clear();
+    };
+    StorageService.prototype.validateLS = function () {
+        try {
+            sessionStorage.setItem("test", "1");
+            sessionStorage.removeItem("test");
+            return true;
+        }
+        catch (error) {
+            return false;
+        }
+    };
+    StorageService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: "root"
+        }),
+        __metadata("design:paramtypes", [])
+    ], StorageService);
+    return StorageService;
+}());
+
+/* harmony default export */ __webpack_exports__["default"] = (Storage);
+
+
+/***/ }),
+
+/***/ "./src/directives/number-only.directive.ts":
+/*!*************************************************!*\
+  !*** ./src/directives/number-only.directive.ts ***!
+  \*************************************************/
+/*! exports provided: NumberOnlyDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumberOnlyDirective", function() { return NumberOnlyDirective; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var NumberOnlyDirective = /** @class */ (function () {
+    function NumberOnlyDirective(el) {
+        this.el = el;
+        this.regex = new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g);
+        this.specialKeys = ["Backspace", "Tab", "End", "Home"];
+    }
+    NumberOnlyDirective.prototype.onKeyDown = function (event) {
+        if (this.specialKeys.indexOf(event.key) !== -1) {
+            return;
+        }
+        var current = this.el.nativeElement.value;
+        var next = current.concat(event.key);
+        if (next && !String(next).match(this.regex)) {
+            event.preventDefault();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])("keydown", ["$event"]),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [KeyboardEvent]),
+        __metadata("design:returntype", void 0)
+    ], NumberOnlyDirective.prototype, "onKeyDown", null);
+    NumberOnlyDirective = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"])({
+            selector: "[numberOnly]"
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+    ], NumberOnlyDirective);
+    return NumberOnlyDirective;
+}());
+
 
 
 /***/ }),
@@ -706,19 +1053,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var RoasterService = /** @class */ (function () {
+    //baseUrl = "/api/appointment";
     function RoasterService(http) {
         this.http = http;
+        this.baseUrl = "http://115.70.199.185/api/appointment";
     }
     RoasterService.prototype.getRoastersFromApi = function (date, officeLocationId) {
         return this.http
-            .get("/api/appointment/GetRoasters?date=" + date.toISOString() + "&locationId=" + officeLocationId)
+            .get(this.baseUrl + "/rostertime?selectedDate=" + date.toISOString() + "&locationId=" + officeLocationId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (rootArray) {
             var roasterArray = [];
             rootArray.forEach(function (model) {
                 model.rosterTimePeriods.forEach(function (tp) {
                     var startTime = tp.startTime;
                     var time = new Date(startTime);
-                    var roster = new _models_roaster__WEBPACK_IMPORTED_MODULE_0__["Roaster"](time, Object(_common_common__WEBPACK_IMPORTED_MODULE_2__["getTimeSlot"])(time), "jn", true);
+                    var roster = new _models_roaster__WEBPACK_IMPORTED_MODULE_0__["Roaster"](time, Object(_common_common__WEBPACK_IMPORTED_MODULE_2__["getTimeSlot"])(time), "jn", false);
                     roasterArray.push(roster);
                 });
             });
@@ -726,25 +1075,28 @@ var RoasterService = /** @class */ (function () {
         }));
     };
     RoasterService.prototype.getOfficeLocations = function () {
-        return this.http.get("api/appointment/officelocations");
+        return this.http.get(this.baseUrl + "/officelocations");
     };
     RoasterService.prototype.getPhoneNumberOptions = function () {
-        return this.http.get("api/appointment/PhoneLabels");
+        return this.http.get(this.baseUrl + "/phoneLabels");
     };
     RoasterService.prototype.getEmailOptions = function () {
-        return this.http.get("api/appointment/EmailLabels");
+        return this.http.get(this.baseUrl + "/emailLabels");
     };
     RoasterService.prototype.getBestTimeTocall = function () {
-        return this.http.get("api/appointment/BestTimeToCalls");
+        return this.http.get(this.baseUrl + "/besttimetocalls");
     };
     RoasterService.prototype.getSuburbs = function () {
-        return this.http.get("api/appointment/Suburbs");
+        return this.http.get("/api/appointment/suburbs");
     };
     RoasterService.prototype.getRegions = function () {
-        return this.http.get("api/appointment/Regions");
+        return this.http.get(this.baseUrl + "/regions");
     };
     RoasterService.prototype.getSources = function () {
-        return this.http.get("api/appointment/Sources");
+        return this.http.get(this.baseUrl + "/sources");
+    };
+    RoasterService.prototype.createAppointment = function (appointmentPayLoad) {
+        return this.http.post(this.baseUrl + "/CreateAppointmentJob", appointmentPayLoad);
     };
     RoasterService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
